@@ -1,7 +1,7 @@
 // Dynamic Gallery Loader for Forsamlingshus
 document.addEventListener("DOMContentLoaded", function () {
   const galleryContainer = document.getElementById("dynamic-gallery");
-  const galleryPath = "../images/gallery/";
+  const galleryPath = "images/gallery/";
   let currentIndex = 0;
   let autoSlideInterval = null;
   let images = [];
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function loadGalleryImages() {
     try {
       // Try to load from PHP endpoint first
-      const response = await fetch("../get_gallery_images.php");
+      const response = await fetch("../defaults/get_gallery_images.php");
       if (response.ok) {
         const imagesList = await response.json();
         images = imagesList;

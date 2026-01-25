@@ -1,7 +1,7 @@
 /* Forsamlingshus Specific Styles */
 
 .hero-section {
-  background-image: url("../../images/frontpage_img.jpeg");
+  background-image: url("images/frontpage_img.jpeg");
   background-size: cover;
   background-position: center;
   height: 500px;
