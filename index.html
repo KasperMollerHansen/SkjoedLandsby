@@ -8408,7 +8408,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
                   </div>
                 </div>
                 <div id="text-6" class="fwidget et_pb_widget widget_text">
-                  <h4 class="title">Skjød By:</h4>
+                  <h4 class="title">Skjød By</h4>
                   <div class="textwidget">
                     Læs mere om alt det gode der forgår i Skjød på:<br />
                     <a
@@ -8417,13 +8417,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
                       >Skjød Forsamlingshus på Facebook</a
                     >
                   </div>
-                </div>
-              </div>
-              <div class="footer-widget"></div>
-              <div class="footer-widget"></div>
-              <div class="footer-widget">
-                <div id="text-5" class="fwidget et_pb_widget widget_text">
-                  <div class="textwidget"></div>
                 </div>
               </div>
             </div>
@@ -8796,6 +8789,37 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
           .et_pb_fullwidth_slider_0.et_pb_slider
           .et_pb_more_button.et_pb_button:hover:after {
           opacity: 1;
+        }
+      }
+    </style>
+    
+    <!-- Footer two-column layout CSS -->
+    <style>
+      #footer-widgets {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      #footer-widgets .fwidget h4.title {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        margin-bottom: 15px !important;
+        letter-spacing: 1px;
+        text-transform: none !important;
+      }
+      
+      #footer-widgets .textwidget {
+        font-size: 16px;
+        line-height: 1.8;
+      }
+      
+      @media only screen and (max-width: 768px) {
+        #footer-widgets {
+          grid-template-columns: 1fr;
+          gap: 20px;
         }
       }
     </style>
