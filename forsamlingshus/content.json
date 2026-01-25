@@ -1,0 +1,92 @@
+{
+  "hero": {
+    "title": "Velkommen til Skjød Forsamlingshus",
+    "buttonText": "Se om det er ledigt"
+  },
+  "calendar": {
+    "title": "SE I KALENDEREN OM FORSAMLINGSHUSET ER LEDIGT TIL DIN FEST!"
+  },
+  "about": {
+    "title": "OM Skjød FORSAMLINGSHUS",
+    "paragraphs": [
+      "Skjød forsamlingshus er nyrenoveret i 2010 og har plads til 100 spisende gæster.",
+      "Huset skal ses, for det fremstår utrolig flot og imødekommende.",
+      "Salen fremstår lys og venlig med lyse trægulve og en særdeles god akustik.",
+      "Der er en projektor, med lydanlæg og der er selvfølgelig WIFI i hele bygningen. Derudover er der et musikanlæg med bluetooth streaming, der kan spille op til festen",
+      "Køkkenet er kun i begrænset omfang egent til fremstilling af varm mad, men mest velegnet som anretter køkken.",
+      "Der er industriopvaskemaskine.",
+      "Parkeringspladsen ved gadekæret har plads til de fleste gæster"
+    ],
+    "facilities": {
+      "title": "Faciliteter:",
+      "items": [
+        "Gode toiletforhold (handicaptoilet og puslebord)",
+        "Industri-ovn til opvarmning af mad",
+        "Projektor og lærred",
+        "Lydanlæg",
+        "Bordfodbold på 1. sal",
+        "Service i hvid porcelæn/glas",
+        "Køleskab i salen"
+      ]
+    },
+    "capacity": {
+      "title": "Kapacitet",
+      "text": "Plads til 100 spisende gæster"
+    }
+  },
+  "prices": {
+    "title": "Info og Priser",
+    "pricesSection": {
+      "title": "Priser",
+      "note": "Priser pr. 1. januar 2020",
+      "items": [
+        "Leje for én hverdag kr. 1.800 inkl. forbrug og rengøring.",
+        "Leje for én dag i weekenden kr. 2.800 inkl. forbrug og rengøring.",
+        "Leje for 2 dage i weekenden kr. 4.400 inkl. forbrug og rengøring.",
+        "Leje for 3 dage i weekenden (Fre, Lør & Søndag) kr. 5.800 inkl. forbrug og rengøring.",
+        "Ekstraordinær rengøring, kr. 300 pr. time.",
+        "Leje for foredrag / møder og mindesammenkomst iflg. aftale.",
+        "Ituslået service m.v. erstattes til genanskaffelsespris.",
+        "Bliver nøglen væk, betaler lejer omkodning af cylindre.",
+        "Nøglen udleveres efter aftale med lejer."
+      ],
+      "priceNote": "Prisliste opdateres 1. januar. Lejer betaler den til enhver tid gældende pris iflg. prisliste.",
+      "disclaimer": "Bemærk: Der tages forbehold for fejl i priser og information på hjemmesiden. Kontakt os venligst for at bekræfte aktuelle priser."
+    },
+    "payment": {
+      "title": "Betaling & Depositum",
+      "text": [
+        "Depositum og leje af forsamlingshuset opkræves ved, at Skjød Forsamlingshus fremsender en faktura. Med indbetalingen af det fakturerede beløb accepteres de medsendte og til enhver tid gældende lejebetingelser.",
+        "Ved betaling af depositum er reservationen endelig og bindende. Depositum returneres når huset er afleveret i opryddet stand."
+      ]
+    },
+    "cancellation": {
+      "title": "Afbestilling",
+      "intro": "Annulleres lejemålet, forbeholder vi os ret til at tilbageholde følgende:",
+      "items": [
+        "Mere end 6 måneder før: 25% af depositum",
+        "Indtil 3 måneder før: 100% af depositum",
+        "Indtil 1 måned før: 50% af lejen",
+        "Mindre end 1 måned før: 100% af lejen"
+      ]
+    },
+    "youth": {
+      "title": "Ungdomsfester",
+      "text": "Lejes ud efter særlig aftale - KUN når der er forældre tilstede under hele festen."
+    }
+  },
+  "contact": {
+    "title": "Kontakt os eller book lokalet",
+    "form": {
+      "name": "Navn",
+      "email": "Email",
+      "phone": "Telefon",
+      "date": "Ønsket dato",
+      "datePlaceholder": "Vælg dato",
+      "guests": "Antal gæster",
+      "message": "Besked",
+      "submitButton": "Send besked",
+      "required": "*"
+    }
+  }
+}
