@@ -1,0 +1,183 @@
+/* Forsamlingshus Specific Styles */
+
+.hero-section {
+  background-image: url("images/frontpage_img.jpeg");
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.calendar-section,
+.about-section,
+.info-section,
+.contact-section {
+  padding: 60px 0;
+}
+
+.about-section {
+  background-color: #ecf0f1;
+}
+
+.info-section {
+  background-color: #ffffff;
+}
+
+.contact-section {
+  background-color: #f5f5f5;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.calendar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.two-column h2 {
+  margin-top: 30px;
+}
+
+.two-column h2:first-child {
+  margin-top: 0;
+}
+
+.gallery-container {
+  width: 100%;
+  min-height: 400px;
+  background: #f5f5f5;
+}
+
+#dynamic-gallery .gallery-item {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 75%;
+  background: #f5f5f5;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+#dynamic-gallery .gallery-item img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+#dynamic-gallery .gallery-item:hover img {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#contact-form {
+  background: #ffffff;
+  padding: 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #c85a3f;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+#form-message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 32px;
+    padding: 0 20px;
+  }
+
+  .two-column {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  #contact-form {
+    padding: 30px 20px;
+  }
+}

@@ -1,67 +1,135 @@
-# Automated Gallery System
+# Skjød Landsby Website - New Structure
 
-## How to Add Images to the Gallery
+## Overview
 
-Simply add any image files to the `images/gallery/` folder, and they will automatically appear on the website.
+The website has been restructured into a modular architecture with a main landing page and separate subpages for different sections.
 
-### Supported Image Formats
+## Directory Structure
 
-- JPG/JPEG
-- PNG
-- GIF
-- WebP
-
-### Image Guidelines
-
-**Important:** All images will be displayed with uniform sizing (4:3 aspect ratio) using CSS object-fit.
-
-**For best results:**
-
-- Use images with similar aspect ratios (preferably 4:3 or close to it)
-- Recommended minimum dimensions: 1200x900 pixels
-- Images are automatically centered and cropped to fit
-
-### How It Works
-
-1. **Add images:** Place any supported image files in `images/gallery/`
-2. **Automatic loading:** The gallery JavaScript automatically detects and displays all images
-3. **Uniform sizing:** CSS ensures all images appear the same size regardless of original dimensions
-4. **No coding needed:** No need to edit HTML - just add/remove images from the folder!
-
-### Current Images
-
-The gallery currently contains:
-
-- forsamlingshus.jpg (1508x2048)
-- forsamlingshus1.jpg (2048x1536)
-- forsamlingshuset-1200x1200.png (1200x1200)
-
-### Optimizing Image Sizes
-
-While the gallery handles different sizes automatically, you can optimize images before uploading:
-
-**Using ImageMagick (if installed):**
-
-```bash
-# Resize image to 1200px width maintaining aspect ratio
-convert your-image.jpg -resize 1200x your-image.jpg
-
-# Convert to 4:3 ratio (1200x900)
-convert your-image.jpg -resize 1200x900^ -gravity center -extent 1200x900 your-image.jpg
+```
+SkjoedForsamlingshus/
+├── index.html                  # Main landing page for Skjød Landsby
+├── forsamlingshus/
+│   ├── forsamlingshus.html     # Forsamlingshus page
+│   ├── styles.css              # Forsamlingshus-specific styles
+│   ├── gallery.js              # Gallery functionality
+│   └── contact.js              # Contact form functionality
+├── shared/
+│   └── styles.css              # Shared styles across all pages
+├── css/                        # Existing CSS files
+├── js/                         # Existing JavaScript files
+├── images/
+│   └── gallery/                # Gallery images
+└── fonts/                      # Font files
 ```
 
-**Using online tools:**
+## Pages
 
-- Use free tools like TinyPNG, Squoosh, or Photopea
-- Resize to around 1200x900 pixels for optimal quality/performance balance
+### 1. Main Landing Page (`index.html`)
 
-### Removing Images
+- Simple, modern landing page for Skjød Landsby
+- Cards linking to different sections:
+  - Forsamlingshus (implemented)
+  - Om Skjød By (coming soon)
+  - Arrangementer (coming soon)
+- About section describing the village
+- Footer with contact information
 
-Simply delete image files from the `images/gallery/` folder - they will no longer appear on the website.
+### 2. Forsamlingshus Page (`forsamlingshus/forsamlingshus.html`)
 
-### Order of Images
+- Hero section with background image
+- Calendar section (Google Calendar embed)
+- About section with gallery
+- Info & Prices section
+- Contact form with date picker
+- All functionality from the original site
 
-Images are displayed in alphabetical order by filename. To control the order:
+## Features
 
-- Name files with numbers: `01-image.jpg`, `02-image.jpg`, etc.
-- Or use alphabetical naming: `a-image.jpg`, `b-image.jpg`, etc.
+### Modular Architecture
+
+- Each page has its own HTML, CSS, and JavaScript files
+- Shared styles are in `shared/styles.css`
+- Easy to add new pages without affecting existing ones
+
+### Responsive Design
+
+- Mobile-friendly navigation
+- Flexible grid layouts
+- Optimized for all screen sizes
+
+### Gallery System
+
+- Dynamic image loading from `images/gallery/` folder
+- Automatic slideshow
+- Fallback images if PHP endpoint fails
+
+### Contact Form
+
+- Flatpickr date picker with Danish locale
+- Form validation
+- Mailto functionality with clipboard copy
+- User feedback messages
+
+## How to Use
+
+### Viewing the Site
+
+1. Open `index.html` in a browser to see the landing page
+2. Click "Læs mere" on the Forsamlingshus card to navigate to the forsamlingshus page
+
+### Adding New Pages
+
+1. Create a new folder in the root directory (e.g., `om-skjoed/`)
+2. Create HTML, CSS, and JS files for the new section
+3. Link shared styles: `<link rel="stylesheet" href="../shared/styles.css" />`
+4. Add navigation links in the header
+5. Update the landing page cards to link to the new page
+
+### Testing
+
+1. Test all links and functionality
+2. Check responsive design on different screen sizes
+3. Verify gallery images load correctly
+4. Test contact form submission
+5. Deploy to your web server
+
+## Technical Details
+
+### CSS Architecture
+
+- **Shared styles** (`pages/shared/styles.css`): Base styles, header, footer, buttons
+- **Page-specific styles**: Unique styles for each section
+
+### JavaScript Modules
+
+- **gallery.js**: Image loading and slideshow
+- **contact.js**: Form handling and date picker initialization
+
+### Dependencies
+
+- Flatpickr (date picker)
+- Google Fonts (Raleway, Open Sans)
+- Google Calendar (embedded)
+
+## Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- IE11+ (with some degradation)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Future Enhancements
+
+- Add "Om Skjød By" page with village history and information
+- Add "Arrangementer" page with upcoming events
+- Implement a news/blog section
+- Add image lightbox for gallery
+- Improve mobile navigation (hamburger menu)
+
+## Notes
+
+- All existing assets (images, CSS, JS) remain in their original locations
+- The gallery images are loaded from `images/gallery/` regardless of page location
+- The PHP endpoint `get_gallery_images.php` is used if available, with fallback to hardcoded images
+- Each page folder (like `forsamlingshus/`) is at the root level for clean URLs
+- Shared styles are in the `shared/` folder at root level
