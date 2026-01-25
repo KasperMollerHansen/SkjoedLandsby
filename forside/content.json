@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "Velkommen til Skjød Landsby",
+    "subtitle": "Oplev det gode landliv i hjertet af Jylland"
+  },
+  "cards": [
+    {
+      "icon": "🏛️",
+      "title": "Forsamlingshus",
+      "description": "Book vores smukke forsamlingshus til din næste fest eller arrangement. Plads til 100 gæster.",
+      "link": "forsamlingshus/",
+      "linkText": "Læs mere"
+    },
+    {
+      "icon": "🏘️",
+      "title": "Om Skjød By",
+      "description": "Lær mere om vores lille charmerende by og fællesskabet her i Skjød.",
+      "link": "#",
+      "linkText": "Kommer snart",
+      "comingSoon": true
+    },
+    {
+      "icon": "📅",
+      "title": "Arrangementer",
+      "description": "Se hvad der sker i Skjød og bliv en del af vores aktive lokalsamfund.",
+      "link": "#",
+      "linkText": "Kommer snart",
+      "comingSoon": true
+    }
+  ],
+  "about": {
+    "title": "Skjød Landsby",
+    "paragraphs": [
+      "Skjød er en lille landsby beliggende i hjertet af Jylland, tæt på Hammel. Her finder du et aktivt lokalsamfund med et flot forsamlingshus, der står klar til at være rammen om dine festligheder og arrangementer.",
+      "Vores forsamlingshus er nyrenoveret og tilbyder moderne faciliteter i historiske rammer. Vi er stolte af vores fællesskab og ser frem til at byde dig velkommen."
+    ]
+  },
+  "footer": {
+    "widgets": [
+      {
+        "title": "Skjød Forsamlingshus",
+        "content": "Bygaden 25, Skjød<br />8450 Hammel"
+      },
+      {
+        "title": "Skjød By:",
+        "content": "Læs mere om alt det gode der forgår i Skjød på:<br /><a href=\"https://www.facebook.com/profile.php?id=100095412859737\" target=\"_blank\">Skjød Forsamlingshus på Facebook</a>"
+      }
+    ],
+    "copyright": "© 2026 Skjød Landsby. Alle rettigheder forbeholdes."
+  }
+}
