@@ -47,20 +47,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       p.textContent = text;
       aboutSection.appendChild(p);
     });
-
-    // Footer
-    const footerWidgets = document.querySelectorAll(".footer-widget");
-    content.footer.widgets.forEach((widget, index) => {
-      if (footerWidgets[index]) {
-        footerWidgets[index].querySelector("h4").textContent = widget.title;
-        footerWidgets[index].querySelector("p").innerHTML = widget.content;
-      }
-    });
-
-    const footerBottom = document.querySelector(".footer-bottom p");
-    if (footerBottom) {
-      footerBottom.textContent = content.footer.copyright;
-    }
   } catch (error) {
     console.error("Error loading front page content:", error);
   }
