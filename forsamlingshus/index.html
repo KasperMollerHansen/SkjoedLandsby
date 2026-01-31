@@ -18,6 +18,7 @@
 
     <!-- Import shared styles -->
     <link rel="stylesheet" href="../defaults/shared/styles.css" />
+    <link rel="stylesheet" href="../defaults/shared/subpage-theme.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -25,10 +26,15 @@
     <!-- Shared Menubar -->
     <div id="menubar"></div>
     <script>
-      fetch("../menubar.html")
+      fetch("../defaults/shared/menubar.html")
         .then((r) => r.text())
         .then((html) => {
           document.getElementById("menubar").innerHTML = html;
+          // Inject Forsamlingshus links
+          const ul = document.querySelector(".menubar-links");
+          if (ul) {
+            ul.innerHTML = '<li><a href="/index.html">Forside</a></li>';
+          }
         });
     </script>
 

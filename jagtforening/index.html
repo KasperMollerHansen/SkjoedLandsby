@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../defaults/shared/subpage-theme.css" />
     <title>Skjød Jagtforening</title>
   </head>
   <body>
@@ -17,10 +18,15 @@
       <!-- Yderligere indhold kan tilføjes her -->
     </main>
     <script>
-      fetch("menubar.html")
+      fetch("../defaults/shared/menubar.html")
         .then((r) => r.text())
         .then((html) => {
           document.getElementById("menubar").innerHTML = html;
+          // Inject Jagtforening links
+          const ul = document.querySelector(".menubar-links");
+          if (ul) {
+            ul.innerHTML = '<li><a href="/index.html">Forside</a></li>';
+          }
         });
     </script>
   </body>

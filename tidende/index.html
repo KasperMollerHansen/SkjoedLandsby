@@ -3,22 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../defaults/shared/subpage-theme.css" />
     <title>Skøjd tidende</title>
   </head>
   <body>
     <!-- Menubar -->
     <div id="menubar"></div>
     <main style="max-width: 800px; margin: 40px auto; padding: 20px">
-      <h1>Skøjd tidende</h1>
-      <p>Læs de seneste nyheder og opdateringer fra Skjød.</p>
-      <!-- Yderligere indhold kan tilføjes her -->
+      <!-- Content loaded from content.json -->
     </main>
     <script>
-      fetch("menubar.html")
+      fetch("../defaults/shared/menubar.html")
         .then((r) => r.text())
         .then((html) => {
           document.getElementById("menubar").innerHTML = html;
+          // Inject Tidende links
+          const ul = document.querySelector(".menubar-links");
+          if (ul) {
+            ul.innerHTML = `
+            <li><a href="/index.html">Forside</a></li>
+            <li><a href="/tidende/historie/index.html">Historie</a></li>
+            <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
+            <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
+          `;
+          }
         });
     </script>
+    <script src="content-loader.js"></script>
   </body>
 </html>

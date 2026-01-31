@@ -1,50 +1,74 @@
 <nav class="main-menubar">
   <ul>
     <li><a href="/index.html">Forside</a></li>
-    <li><a href="/forsamlingshus/index.html">Skjød Forsamlingshus</a></li>
-    <li><a href="/jagtforening/index.html">Skjød Jagtforening</a></li>
-    <li><a href="/shif/index.html">SHIF</a></li>
-    <li><a href="/tidende/index.html">Skøjd tidende</a></li>
+    <li><a href="/tidende/historie/index.html">Historie</a></li>
+    <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
+    <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
   </ul>
 </nav>
 <style>
   .main-menubar {
-    background: #667eea;
-    padding: 0;
-    margin: 0 0 30px 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    margin: 30px auto 40px auto;
+    padding: 0 24px;
+    max-width: 900px;
+    position: relative;
+    z-index: 10;
   }
   .main-menubar ul {
     list-style: none;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 0;
     padding: 0;
+    min-height: 56px;
   }
   .main-menubar li {
-    margin: 0 20px;
+    margin: 0 18px;
   }
   .main-menubar a {
-    color: #fff;
+    color: #2d3748;
     text-decoration: none;
+    font-family: "Raleway", sans-serif;
     font-weight: 600;
     font-size: 18px;
-    padding: 18px 0;
+    padding: 12px 0 10px 0;
     display: block;
-    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+    transition:
+      color 0.2s,
+      border-bottom 0.2s;
   }
-  .main-menubar a:hover {
-    color: #c85a3f;
+  .main-menubar a:hover,
+  .main-menubar a.active {
+    color: #667eea;
+    border-bottom: 2.5px solid #667eea;
+    background: rgba(102, 126, 234, 0.07);
+    border-radius: 4px 4px 0 0;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     .main-menubar ul {
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
     }
     .main-menubar li {
-      margin: 10px 0;
+      margin: 6px 0;
     }
   }
 </style>
+<script>
+  // Highlight current page
+  const links = document.querySelectorAll(".main-menubar a");
+  const path = window.location.pathname;
+  links.forEach((link) => {
+    if (link.getAttribute("href") === path) {
+      link.classList.add("active");
+    }
+  });
+</script>
 <script>
   const links = document.querySelectorAll(".main-menubar a");
   const path = window.location.pathname;
