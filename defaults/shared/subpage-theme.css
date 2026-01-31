@@ -14,6 +14,8 @@ main {
   margin-bottom: 36px;
   max-width: 900px;
   width: 100%;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 h1,
