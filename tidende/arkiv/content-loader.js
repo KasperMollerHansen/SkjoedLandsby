@@ -33,7 +33,21 @@
         const ul = document.getElementById(`pdf-list-${year}`);
         if (ul && files.length) {
           files.forEach((f) => {
-            ul.innerHTML += `<li><a href="/tidende/arkiv/${year}/${f}" target="_blank">${f.replace(/[-_]/g, " ")}</a></li>`;
+            const base = f.replace(/\.pdf$/i, "");
+            const imgPath = `/tidende/arkiv/${year}/${base}.jpg`;
+            // Try to use the image as the link holder
+            const img = new Image();
+            img.src = imgPath;
+            img.onload = function () {
+              ul.innerHTML += `<li style="display:inline-block;margin:12px 18px 24px 0;vertical-align:top;">
+                <a href="/tidende/arkiv/${year}/${f}" target="_blank">
+                  <img src="${imgPath}" alt="${base}" style="width:160px;max-width:90vw;box-shadow:0 2px 12px #b3c6e6;border-radius:8px;display:block;margin-bottom:8px;">
+                </a>
+              </li>`;
+            };
+            img.onerror = function () {
+              ul.innerHTML += `<li><a href="/tidende/arkiv/${year}/${f}" target="_blank">${f.replace(/[-_]/g, " ")}</a></li>`;
+            };
           });
         }
       }
