@@ -26,17 +26,17 @@
       }
 
       .hero {
-        height: 100vh;
+        min-height: 250px;
         background-image: url("forside/images/home_img.jpg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         justify-content: center;
         text-align: center;
         color: white;
-        padding: 20px;
+        padding: 40px 20px 20px 20px;
         position: relative;
       }
 
@@ -75,8 +75,8 @@
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
         max-width: 1200px;
-        margin: -100px auto 0;
-        padding: 0 20px 80px;
+        margin: 30px auto 0;
+        padding: 0 20px 40px;
         position: relative;
         z-index: 10;
       }
@@ -99,20 +99,30 @@
       }
 
       .card-icon {
-        font-size: 64px;
-        margin-bottom: 20px;
+        font-size: 24px;
+        margin-bottom: 14px;
       }
 
-      .card h2 {
-        font-family: "Raleway", sans-serif;
-        font-size: 28px;
-        margin-bottom: 15px;
-        color: #667eea;
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 30px auto 0;
+        padding: 0 20px 40px;
+        position: relative;
+        z-index: 10;
       }
-
-      .card p {
-        font-size: 16px;
-        line-height: 1.6;
+      @media only screen and (max-width: 900px) {
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media only screen and (max-width: 600px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+      }
         color: #666;
         margin-bottom: 25px;
       }
@@ -240,31 +250,7 @@
 
     <!-- Cards Section -->
     <div class="cards">
-      <!-- Main navigation cards -->
-      <div class="card">
-        <div class="card-icon">🏠</div>
-        <h2>Skjød Forsamlingshus</h2>
-        <p>Information om forsamlingshuset, arrangementer og booking.</p>
-        <a class="card-link" href="forsamlingshus/index.html">Gå til side</a>
-      </div>
-      <div class="card">
-        <div class="card-icon">🎯</div>
-        <h2>Skjød Jagtforening</h2>
-        <p>Alt om jagtforeningen, aktiviteter og medlemskab.</p>
-        <a class="card-link" href="jagtforening/index.html">Gå til side</a>
-      </div>
-      <div class="card">
-        <div class="card-icon">🤸</div>
-        <h2>SHIF</h2>
-        <p>Skjød borger og idræts forening – sport, fællesskab og events.</p>
-        <a class="card-link" href="shif/index.html">Gå til side</a>
-      </div>
-      <div class="card">
-        <div class="card-icon">📰</div>
-        <h2>Skøjd tidende</h2>
-        <p>Læs de seneste nyheder og opdateringer fra Skjød.</p>
-        <a class="card-link" href="tidende/index.html">Gå til side</a>
-      </div>
+      <!-- Content loaded from forside/content.json -->
     </div>
 
     <!-- About Section -->

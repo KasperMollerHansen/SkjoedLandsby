@@ -12,20 +12,25 @@
       "linkText": "Læs mere"
     },
     {
-      "icon": "🏘️",
-      "title": "Om Skjød By",
-      "description": "Lær mere om vores lille charmerende by og fællesskabet her i Skjød.",
-      "link": "#",
-      "linkText": "Kommer snart",
-      "comingSoon": true
+      "icon": "🎯",
+      "title": "Jagtforening",
+      "description": "Alt om jagtforeningen, aktiviteter og medlemskab.",
+      "link": "jagtforening/",
+      "linkText": "Læs mere"
     },
     {
-      "icon": "📅",
-      "title": "Arrangementer",
-      "description": "Se hvad der sker i Skjød og bliv en del af vores aktive lokalsamfund.",
-      "link": "#",
-      "linkText": "Kommer snart",
-      "comingSoon": true
+      "icon": "🤸",
+      "title": "SHIF",
+      "description": "Skjød borger og idræts forening – sport, fællesskab og events.",
+      "link": "shif/",
+      "linkText": "Læs mere"
+    },
+    {
+      "icon": "📰",
+      "title": "Skøjd tidende",
+      "description": "Læs de seneste nyheder og opdateringer fra Skjød.",
+      "link": "tidende/",
+      "linkText": "Læs mere"
     }
   ],
   "about": {
