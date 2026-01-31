@@ -1,0 +1,57 @@
+<nav class="main-menubar">
+  <ul>
+    <li><a href="/index.html">Forside</a></li>
+    <li><a href="/forsamlingshus/index.html">Skjød Forsamlingshus</a></li>
+    <li><a href="/jagtforening/index.html">Skjød Jagtforening</a></li>
+    <li><a href="/shif/index.html">SHIF</a></li>
+    <li><a href="/tidende/index.html">Skøjd tidende</a></li>
+  </ul>
+</nav>
+<style>
+  .main-menubar {
+    background: #667eea;
+    padding: 0;
+    margin: 0 0 30px 0;
+  }
+  .main-menubar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  .main-menubar li {
+    margin: 0 20px;
+  }
+  .main-menubar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 18px 0;
+    display: block;
+    transition: color 0.2s;
+  }
+  .main-menubar a:hover {
+    color: #c85a3f;
+  }
+  @media (max-width: 600px) {
+    .main-menubar ul {
+      flex-direction: column;
+      align-items: center;
+    }
+    .main-menubar li {
+      margin: 10px 0;
+    }
+  }
+</style>
+<script>
+  const links = document.querySelectorAll(".main-menubar a");
+  const path = window.location.pathname;
+  links.forEach((link) => {
+    if (link.getAttribute("href") === path) {
+      link.style.textDecoration = "underline";
+      link.style.color = "#c85a3f";
+    }
+  });
+</script>

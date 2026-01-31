@@ -22,24 +22,15 @@
   </head>
 
   <body>
-    <!-- Navigation -->
-    <header id="main-header">
-      <div class="container">
-        <div id="et-top-navigation">
-          <nav id="top-menu-nav">
-            <ul id="top-menu" class="nav">
-              <li><a href="../">Hjem</a></li>
-              <li class="current-menu-item">
-                <a href="./">Forsamlingshus</a>
-              </li>
-              <li><a href="#header-kalender">Kalender</a></li>
-              <li><a href="#info-og-priser">Info & Priser</a></li>
-              <li><a href="#kontakt">Kontakt</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
+    <!-- Shared Menubar -->
+    <div id="menubar"></div>
+    <script>
+      fetch("../menubar.html")
+        .then((r) => r.text())
+        .then((html) => {
+          document.getElementById("menubar").innerHTML = html;
+        });
+    </script>
 
     <!-- Main Content -->
     <div id="et-main-area">

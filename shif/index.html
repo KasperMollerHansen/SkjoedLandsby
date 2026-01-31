@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="da-DK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHIF (Skjød borger og idræts forening)</title>
+  </head>
+  <body>
+    <!-- Menubar -->
+    <div id="menubar"></div>
+    <main style="max-width: 800px; margin: 40px auto; padding: 20px">
+      <h1>SHIF (Skjød borger og idræts forening)</h1>
+      <p>
+        Velkommen til SHIF. Her finder du information om sport, fællesskab og
+        kommende events.
+      </p>
+      <!-- Yderligere indhold kan tilføjes her -->
+    </main>
+    <script>
+      fetch("menubar.html")
+        .then((r) => r.text())
+        .then((html) => {
+          document.getElementById("menubar").innerHTML = html;
+        });
+    </script>
+  </body>
+</html>
