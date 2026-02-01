@@ -1,7 +1,7 @@
 {
   "title": "Årets Fuglekonge",
   "intro": "Hvert år afholder Skjød Jagtforening sin fugleskydning i Bodtofteskoven. Her startes dagen med, at der bliver blæst i jagthornet for den afgående fuglekonge, inden deltagerne går i gang med at nedlægge fuglen.",
-  "image": "/jagtforening/images/Fugleemblem.jpeg",
+  "image": "../images/Fugleemblem.jpeg",
   "imageAlt": "Fugleemblem",
   "fuglekonger": [
     { "year": "2025", "name": "Kim Nielsen" },

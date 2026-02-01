@@ -168,7 +168,7 @@
 
     // Handle members array (bestyrelse style)
     if (Array.isArray(data.intro.members)) {
-      const defaultImage = "/sbif/bestyrelse/images/default.jpg";
+      const defaultImage = "./images/default.jpg";
       const memberCount = data.intro.members.length;
       const hasOddMember = memberCount % 2 !== 0;
 
