@@ -1,11 +1,7 @@
 // Load shared footer content across all pages
 (async function loadSharedFooter() {
   try {
-    // Determine the correct path based on current location
-    const currentPath = window.location.pathname;
-    const pathPrefix = currentPath.includes("/forsamlingshus/") ? "../" : "";
-
-    const response = await fetch(pathPrefix + "defaults/shared/content.json");
+    const response = await fetch("/assets/shared/content.json");
     const content = await response.json();
 
     // Footer widgets
@@ -28,6 +24,6 @@
       footerBottom.textContent = content.footer.copyright;
     }
   } catch (error) {
-    console.error("Error loading shared footer content:", error);
+    console.error("Error loading footer:", error);
   }
 })();

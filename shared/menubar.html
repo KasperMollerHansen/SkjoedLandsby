@@ -1,0 +1,90 @@
+<nav class="main-menubar">
+  <div class="menubar-inner">
+    <a href="/index.html" class="menubar-logo">
+      <img
+        src="/assets/images/skjoed.png"
+        alt="Skjød logo"
+        style="
+          height: 40px;
+          width: auto;
+          vertical-align: middle;
+          border-radius: 6px;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+          margin-right: 18px;
+        "
+      />
+    </a>
+    <ul class="menubar-links">
+      <!-- Links will be injected by each subpage -->
+    </ul>
+  </div>
+</nav>
+<style>
+  .main-menubar {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    margin: 30px auto 40px auto;
+    padding: 0 24px;
+    max-width: 900px;
+    position: relative;
+    z-index: 10;
+  }
+  .menubar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 56px;
+  }
+  .menubar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-right: 18px;
+  }
+  .menubar-links {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+  .menubar-links li {
+    margin: 0 18px;
+  }
+  .menubar-links a {
+    color: #2d3748;
+    text-decoration: none;
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 12px 0 10px 0;
+    display: block;
+    border-bottom: 2px solid transparent;
+    transition:
+      color 0.2s,
+      border-bottom 0.2s;
+  }
+  .menubar-links a:hover,
+  .menubar-links a.active {
+    color: #667eea;
+    border-bottom: 2.5px solid #667eea;
+    background: rgba(102, 126, 234, 0.07);
+    border-radius: 4px 4px 0 0;
+  }
+  @media (max-width: 700px) {
+    .menubar-inner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .menubar-links {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .menubar-links li {
+      margin: 6px 0;
+    }
+  }
+</style>

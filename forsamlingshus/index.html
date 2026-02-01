@@ -1,5 +1,5 @@
 <!doctype html>
-<html dir="ltr" lang="da-DK" class="js">
+<html dir="ltr" lang="da-DK">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,26 +17,14 @@
     />
 
     <!-- Import shared styles -->
-    <link rel="stylesheet" href="../defaults/shared/styles.css" />
-    <link rel="stylesheet" href="../defaults/shared/subpage-theme.css" />
+    <link rel="stylesheet" href="/assets/shared/styles.css" />
+    <link rel="stylesheet" href="/shared/theme.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
-    <!-- Shared Menubar -->
+    <!-- Menubar -->
     <div id="menubar"></div>
-    <script>
-      fetch("../defaults/shared/menubar.html")
-        .then((r) => r.text())
-        .then((html) => {
-          document.getElementById("menubar").innerHTML = html;
-          // Inject Forsamlingshus links
-          const ul = document.querySelector(".menubar-links");
-          if (ul) {
-            ul.innerHTML = '<li><a href="/index.html">Forside</a></li>';
-          }
-        });
-    </script>
 
     <!-- Main Content -->
     <div id="et-main-area">
@@ -170,9 +158,9 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/da.js"></script>
-    <script src="content-loader.js"></script>
+    <script src="/shared/content-loader.js"></script>
+    <script src="/shared/footer-loader.js"></script>
     <script src="gallery.js"></script>
     <script src="contact.js"></script>
-    <script src="../defaults/shared/footer-loader.js"></script>
   </body>
 </html>

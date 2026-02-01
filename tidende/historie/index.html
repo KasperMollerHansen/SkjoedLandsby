@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../defaults/shared/subpage-theme.css" />
+    <link rel="stylesheet" href="/shared/theme.css" />
     <title>Skøjd Tidende – Historie</title>
   </head>
   <body>
@@ -11,19 +11,20 @@
     <main style="max-width: 800px; margin: 40px auto; padding: 20px">
       <!-- Content loaded from content.json -->
     </main>
+    <script src="/shared/content-loader.js"></script>
     <script>
-      fetch("../../defaults/shared/menubar.html")
-        .then((r) => r.text())
-        .then((html) => {
-          document.getElementById("menubar").innerHTML = html;
-          // Load the menu links from a shared file
-          fetch("../shared/menubar-links.html")
-            .then((r) => r.text())
-            .then((links) => {
-              const ul = document.querySelector(".menubar-links");
-              if (ul) ul.outerHTML = links;
-            });
-        });
+      setTimeout(() => {
+        const ul = document.querySelector(".menubar-links");
+        if (ul) {
+          ul.innerHTML = `
+            <li><a href="/index.html">Forside</a></li>
+            <li><a href="/tidende/index.html">Skjød Tidende</a></li>
+            <li><a href="/tidende/historie/index.html">Historie</a></li>
+            <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
+            <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
+          `;
+        }
+      }, 100);
     </script>
     <script src="content-loader.js"></script>
   </body>

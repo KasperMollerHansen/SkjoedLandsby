@@ -27,7 +27,7 @@
 
       .hero {
         min-height: 250px;
-        background-image: url("forside/images/home_img.jpg");
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -99,8 +99,21 @@
       }
 
       .card-icon {
-        font-size: 24px;
+        font-size: 48px;
         margin-bottom: 14px;
+      }
+
+      .card h3 {
+        font-family: "Raleway", sans-serif;
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .card p {
+        color: #666;
+        margin-bottom: 25px;
+        line-height: 1.6;
       }
 
       .cards {
@@ -113,18 +126,17 @@
         position: relative;
         z-index: 10;
       }
+
       @media only screen and (max-width: 900px) {
         .cards {
           grid-template-columns: repeat(2, 1fr);
         }
       }
+
       @media only screen and (max-width: 600px) {
         .cards {
           grid-template-columns: 1fr;
         }
-      }
-        color: #666;
-        margin-bottom: 25px;
       }
 
       .card-link {
@@ -277,7 +289,7 @@
     </footer>
 
     <!-- Content Loader Script -->
-    <script src="forside/content-loader.js"></script>
-    <script src="defaults/shared/footer-loader.js"></script>
+    <script src="/content-loader.js"></script>
+    <script src="/shared/footer-loader.js"></script>
   </body>
 </html>
