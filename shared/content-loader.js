@@ -82,7 +82,6 @@
         <li><a href="/index.html">Forside</a></li>
         <li><a href="/sbif/historie/index.html">Historie</a></li>
         <li><a href="/sbif/bestyrelse/index.html">Bestyrelse</a></li>
-        <li><a href="/sbif/kontakt/index.html">Kontakt</a></li>
         <li><a href="/sbif/vedtaegter/index.html">Vedtægter</a></li>
         <li><a href="/sbif/arrangementer/index.html">Arrangementer</a></li>
       `;
@@ -143,6 +142,40 @@
     let contentHtml = "";
     let itemsHtml = "";
 
+    // Handle members array (bestyrelse style)
+    if (Array.isArray(data.intro.members)) {
+      const defaultImage = "/sbif/bestyrelse/images/default.jpg";
+      const memberCount = data.intro.members.length;
+      const hasOddMember = memberCount % 2 !== 0;
+
+      contentHtml =
+        '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px;">';
+
+      data.intro.members.forEach((member, index) => {
+        const memberImage = member.image || defaultImage;
+        const isLastOdd = hasOddMember && index === memberCount - 1;
+        const gridColumnStyle = isLastOdd
+          ? "grid-column: 1 / -1; max-width: 600px; margin: 0 auto; width: 100%;"
+          : "";
+
+        contentHtml += `
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; ${gridColumnStyle}">
+            <img src="${memberImage}" alt="${member.name}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="flex: 1; min-width: 200px;">
+              <h3 style="margin: 0 0 8px 0; color: #667eea; font-size: 1.1em;">${member.role}</h3>
+              <p style="margin: 4px 0; font-weight: 500; font-size: 1.05em;">${member.name}</p>
+              ${member.phone ? `<p style="margin: 4px 0;">Tlf: ${member.phone}</p>` : ""}
+              ${member.email ? `<p style="margin: 4px 0;">Mail: <a href="mailto:${member.email}" style="color: #667eea;">${member.email}</a></p>` : ""}
+            </div>
+          </div>
+        `;
+      });
+      contentHtml += "</div>";
+
+      main.innerHTML = `<h1>${data.intro.title || ""}</h1>${contentHtml}`;
+      return;
+    }
+
     // Handle paragraphs array (jagtforening style)
     if (Array.isArray(data.intro.paragraphs)) {
       data.intro.paragraphs.forEach((paragraph) => {
@@ -164,6 +197,18 @@
       itemsHtml += "</ul>";
     }
 
+    // Handle PDF link (vedtægter style)
+    let pdfHtml = "";
+    if (data.intro.pdf) {
+      pdfHtml = `
+        <div style="margin-top: 24px;">
+          <a href="${data.intro.pdf}" target="_blank" style="display: inline-block; background: #667eea; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); transition: all 0.2s;">
+            📄 Åbn Vedtægter (PDF)
+          </a>
+        </div>
+      `;
+    }
+
     main.innerHTML = `
       <h1>${data.intro.title || "Skjød Tidende"}</h1>
       <div style="display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap;">
@@ -171,6 +216,7 @@
         ${imageHtml}
       </div>
       ${itemsHtml}
+      ${pdfHtml}
     `;
   }
 
