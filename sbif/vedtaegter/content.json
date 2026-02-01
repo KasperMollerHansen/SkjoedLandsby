@@ -2,6 +2,6 @@
   "intro": {
     "title": "Vedtægter",
     "text": "Her kan du læse foreningens vedtægter.",
-    "pdf": "/sbif/vedtaegter/files/vedtaegter.pdf"
+    "pdf": "./files/vedtaegter.pdf"
   }
 }
