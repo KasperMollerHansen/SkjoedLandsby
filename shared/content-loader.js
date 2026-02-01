@@ -224,9 +224,22 @@
     // Handle PDF link (vedtægter style)
     let pdfHtml = "";
     if (data.intro.pdf) {
+      // Construct absolute path for PDF to ensure it resolves correctly on GitHub Pages
+      // Get the base path for the current page
+      const baseHref = window.location.pathname.endsWith("/")
+        ? window.location.pathname
+        : window.location.pathname.substring(
+            0,
+            window.location.pathname.lastIndexOf("/") + 1,
+          );
+      // Resolve the PDF path relative to the page location
+      let pdfPath = data.intro.pdf;
+      if (pdfPath.startsWith("./")) {
+        pdfPath = baseHref + pdfPath.substring(2);
+      }
       pdfHtml = `
         <div style="margin-top: 24px;">
-          <a href="${data.intro.pdf}" target="_blank" style="display: inline-block; background: #667eea; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); transition: all 0.2s;">
+          <a href="${pdfPath}" target="_blank" style="display: inline-block; background: #667eea; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); transition: all 0.2s;">
             📄 Åbn Vedtægter (PDF)
           </a>
         </div>
