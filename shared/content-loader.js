@@ -100,6 +100,7 @@
       : "";
 
     let contentHtml = "";
+    let itemsHtml = "";
 
     // Handle paragraphs array (jagtforening style)
     if (Array.isArray(data.intro.paragraphs)) {
@@ -112,13 +113,14 @@
       contentHtml = `<div style="flex: 1; min-width: 220px; white-space: pre-line; font-size: 1.1em;">${data.intro.text}</div>`;
     }
 
-    // Handle items list (arrangementer style)
+    // Handle items list (arrangementer style) - separate from flex container
     if (Array.isArray(data.intro.items)) {
-      contentHtml += '<ul style="font-size: 1.1em; line-height: 1.8;">';
+      itemsHtml =
+        '<ul style="font-size: 1.1em; line-height: 1.8; margin-top: 16px;">';
       data.intro.items.forEach((item) => {
-        contentHtml += `<li>${item}</li>`;
+        itemsHtml += `<li>${item}</li>`;
       });
-      contentHtml += "</ul>";
+      itemsHtml += "</ul>";
     }
 
     main.innerHTML = `
@@ -127,6 +129,7 @@
         ${contentHtml}
         ${imageHtml}
       </div>
+      ${itemsHtml}
     `;
   }
 
