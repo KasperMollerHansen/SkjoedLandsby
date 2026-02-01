@@ -5,7 +5,14 @@
   "use strict";
 
   // Determine the relative path to shared folder based on current location
-  const pathDepth = (window.location.pathname.match(/\//g) || []).length - 1;
+  // Remove the repo base path if present (for GitHub Pages)
+  let pathname = window.location.pathname;
+  if (pathname.includes("/SkjoedLandsby/")) {
+    pathname = pathname.substring(
+      pathname.indexOf("/SkjoedLandsby/") + "/SkjoedLandsby".length,
+    );
+  }
+  const pathDepth = (pathname.match(/\//g) || []).length - 1;
   const relativePath =
     pathDepth === 1 ? "./shared/" : "../".repeat(pathDepth - 1) + "shared/";
 
