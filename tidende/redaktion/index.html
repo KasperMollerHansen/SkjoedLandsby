@@ -16,17 +16,13 @@
         .then((r) => r.text())
         .then((html) => {
           document.getElementById("menubar").innerHTML = html;
-          // Inject links: Forside, Skjød Tidende, and subsubpages
-          const ul = document.querySelector(".menubar-links");
-          if (ul) {
-            ul.innerHTML = `
-            <li><a href="/index.html">Forside</a></li>
-            <li><a href="/tidende/index.html">Skjød Tidende</a></li>
-            <li><a href="/tidende/historie/index.html">Historie</a></li>
-            <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
-            <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
-          `;
-          }
+          // Load the menu links from a shared file
+          fetch("../shared/menubar-links.html")
+            .then((r) => r.text())
+            .then((links) => {
+              const ul = document.querySelector(".menubar-links");
+              if (ul) ul.outerHTML = links;
+            });
         });
     </script>
     <script src="content-loader.js"></script>
