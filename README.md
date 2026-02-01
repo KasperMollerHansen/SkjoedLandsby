@@ -1,102 +1,224 @@
-# Skjød Landsby Website - New Structure
+# Skjød Landsby Website
 
 ## Overview
 
-The website has been restructured into a modular architecture with a main landing page and separate subpages for different sections.
+A modern, serverless website for Skjød Landsby with a modular architecture. All pages use a consistent structure with content managed through JSON files.
 
 ## Directory Structure
 
 ```
-SkjoedForsamlingshus/
-├── index.html                  # Main landing page for Skjød Landsby
-├── forsamlingshus/
-│   ├── forsamlingshus.html     # Forsamlingshus page
-│   ├── styles.css              # Forsamlingshus-specific styles
+SkjoedLandsby/
+├── index.html                  # Main landing page
+├── shared/                     # Shared components (NEW)
+│   ├── menubar.html            # Navigation bar
+│   ├── theme.css               # Shared theme styles
+│   ├── content-loader.js       # Universal content loader
+│   └── footer-loader.js        # Footer content loader
+├── assets/                     # Static assets (renamed from defaults/)
+│   ├── css/                    # Stylesheets
+│   ├── js/                     # JavaScript libraries
+│   ├── fonts/                  # Font files
+│   ├── images/                 # Images
+│   └── shared/
+│       ├── content.json        # Footer content
+│       ├── menubar.html        # Menubar template
+│       └── styles.css          # Legacy styles
+├── forsamlingshus/             # Community house section
+│   ├── index.html
+│   ├── content.json            # All page content
+│   ├── styles.css              # Section-specific styles
 │   ├── gallery.js              # Gallery functionality
-│   └── contact.js              # Contact form functionality
-├── shared/
-│   └── styles.css              # Shared styles across all pages
-├── css/                        # Existing CSS files
-├── js/                         # Existing JavaScript files
-├── images/
-│   └── gallery/                # Gallery images
-└── fonts/                      # Font files
+│   ├── contact.js              # Contact form
+│   └── images/gallery/         # Gallery images
+├── tidende/                    # Newsletter section
+│   ├── index.html
+│   ├── content.json
+│   ├── arkiv/                  # Archive subsection
+│   ├── historie/               # History subsection
+│   └── redaktion/              # Editorial subsection
+├── jagtforening/               # Hunting association
+│   ├── index.html
+│   └── content.json
+└── sbif/                       # Sports association
+    ├── index.html
+    └── content.json
 ```
 
-## Pages
+## Architecture
 
-### 1. Main Landing Page (`index.html`)
+### Consistent Pattern
 
-- Simple, modern landing page for Skjød Landsby
-- Cards linking to different sections:
-  - Forsamlingshus (implemented)
-  - Om Skjød By (coming soon)
-  - Arrangementer (coming soon)
-- About section describing the village
-- Footer with contact information
+All sections follow the tidende pattern:
 
-### 2. Forsamlingshus Page (`forsamlingshus/forsamlingshus.html`)
+1. **HTML Structure**: Minimal, semantic HTML with content placeholders
+2. **Content Management**: All text content in `content.json`
+3. **Universal Loader**: Single `shared/content-loader.js` handles all pages
+4. **Shared Styling**: Common theme in `shared/theme.css`
+5. **Section Styles**: Additional styles in local `styles.css`
 
-- Hero section with background image
-- Calendar section (Google Calendar embed)
-- About section with gallery
-- Info & Prices section
-- Contact form with date picker
-- All functionality from the original site
+### Key Files
+
+#### `/shared/content-loader.js`
+
+Universal content loader that:
+
+- Loads menubar from `/shared/menubar.html`
+- Detects page type from `content.json` structure
+- Renders content appropriately for each section type
+
+#### `/shared/footer-loader.js`
+
+Loads footer content from `/assets/shared/content.json`
+
+#### `content.json` Format
+
+**Intro-style pages** (tidende, jagtforening, sbif):
+
+```json
+{
+  "intro": {
+    "title": "Page Title",
+    "text": "Multi-line text content",
+    "image": "path/to/image.jpg",
+    "imageAlt": "Image description"
+  }
+}
+```
+
+**Complex pages** (forsamlingshus):
+
+```json
+{
+  "hero": { "title": "...", "buttonText": "..." },
+  "calendar": { "title": "..." },
+  "about": { "title": "...", "paragraphs": [], "facilities": {} },
+  "prices": { "title": "...", "pricesSection": {}, "rulesSection": {} },
+  "contact": { "title": "...", "formIntro": "...", "contactInfo": {} }
+}
+```
 
 ## Features
 
 ### Modular Architecture
 
-- Each page has its own HTML, CSS, and JavaScript files
-- Shared styles are in `shared/styles.css`
-- Easy to add new pages without affecting existing ones
+- Each section is self-contained
+- Easy to add new sections
+- No dependencies between sections
+
+### Content-Driven
+
+- All text managed in JSON files
+- No hardcoded content in HTML
+- Easy updates without touching code
+
+### Consistent Navigation
+
+- Shared menubar across all pages
+- Section-specific menu items injected via JavaScript
+- Absolute paths (`/shared/`, `/assets/`) for reliability
 
 ### Responsive Design
 
 - Mobile-friendly navigation
-- Flexible grid layouts
-- Optimized for all screen sizes
+- Flexible layouts
+- Works on all screen sizes
 
-### Gallery System
+## Adding a New Section
 
-- Dynamic image loading from `images/gallery/` folder
-- Automatic slideshow
-- Fallback images if PHP endpoint fails
+1. **Create directory**: `newsection/`
 
-### Contact Form
+2. **Create `index.html`**:
 
-- Flatpickr date picker with Danish locale
-- Form validation
-- Mailto functionality with clipboard copy
-- User feedback messages
+```html
+<!doctype html>
+<html lang="da-DK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/shared/theme.css" />
+    <title>Your Title</title>
+  </head>
+  <body>
+    <div id="menubar"></div>
+    <main style="max-width: 800px; margin: 40px auto; padding: 20px">
+      <!-- Content loaded from content.json -->
+    </main>
+    <script src="/shared/content-loader.js"></script>
+    <script>
+      setTimeout(() => {
+        const ul = document.querySelector(".menubar-links");
+        if (ul) {
+          ul.innerHTML = '<li><a href="/index.html">Forside</a></li>';
+        }
+      }, 100);
+    </script>
+  </body>
+</html>
+```
 
-## How to Use
+3. **Create `content.json`**:
 
-### Viewing the Site
+```json
+{
+  "intro": {
+    "title": "Section Title",
+    "text": "Your content here",
+    "image": "",
+    "imageAlt": ""
+  }
+}
+```
 
-1. Open `index.html` in a browser to see the landing page
-2. Click "Læs mere" on the Forsamlingshus card to navigate to the forsamlingshus page
+4. **Update main `index.html`**: Add card linking to new section
 
-### Adding New Pages
+## Development
 
-1. Create a new folder in the root directory (e.g., `om-skjoed/`)
-2. Create HTML, CSS, and JS files for the new section
-3. Link shared styles: `<link rel="stylesheet" href="../shared/styles.css" />`
-4. Add navigation links in the header
-5. Update the landing page cards to link to the new page
+### Local Testing
 
-### Testing
+Simply open `index.html` in a browser. All paths use absolute URLs from root, so you may need a local server:
 
-1. Test all links and functionality
-2. Check responsive design on different screen sizes
-3. Verify gallery images load correctly
-4. Test contact form submission
-5. Deploy to your web server
+```bash
+# Python 3
+python -m http.server 8000
+
+# Node.js
+npx http-server
+
+# PHP
+php -S localhost:8000
+```
+
+Then visit `http://localhost:8000`
+
+### File Paths
+
+All shared resources use absolute paths from root:
+
+- `/shared/content-loader.js`
+- `/shared/theme.css`
+- `/assets/shared/content.json`
+
+This ensures consistency regardless of page nesting depth.
+
+## Migration Notes
+
+### Changes from Old Structure
+
+- `defaults/` → `assets/`
+- Individual `content-loader.js` → single `/shared/content-loader.js`
+- Individual menubars → shared `/shared/menubar.html`
+- `subpage-theme.css` → `theme.css`
+- Relative paths → absolute paths
+
+### Removed Files
+
+- `forsamlingshus/content-loader.js` (now uses shared)
+- `forsamlingshus/menubar.html` (now uses shared)
+- `tidende/content-loader.js` (now uses shared)
+- `forside/` (unused directory)
+- `assets/shared/footer-loader.js` (moved to `/shared/`)
 
 ## Technical Details
-
-### CSS Architecture
 
 - **Shared styles** (`pages/shared/styles.css`): Base styles, header, footer, buttons
 - **Page-specific styles**: Unique styles for each section

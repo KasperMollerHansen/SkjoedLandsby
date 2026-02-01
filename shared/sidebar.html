@@ -1,0 +1,205 @@
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <a href="/index.html" class="sidebar-logo">Landsbyen Skjød</a>
+  </div>
+
+  <ul class="sidebar-menu">
+    <li class="menu-section" data-section="tidende">
+      <div class="menu-item section-header">
+        <a href="/tidende/index.html" class="section-link">
+          <span>📰</span> Skjød Tidende
+        </a>
+        <span class="arrow section-toggle">▶</span>
+      </div>
+      <ul class="submenu">
+        <li><a href="/tidende/historie/index.html">Historie</a></li>
+        <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
+        <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
+      </ul>
+    </li>
+
+    <li class="menu-section" data-section="jagtforening">
+      <div class="menu-item section-header">
+        <a href="/jagtforening/index.html" class="section-link">
+          <span>🦌</span> Skjød Jagtforening
+        </a>
+        <span class="arrow section-toggle">▶</span>
+      </div>
+      <ul class="submenu">
+        <li><a href="/jagtforening/historie/index.html">Historie</a></li>
+        <li>
+          <a href="/jagtforening/arrangementer/index.html">Arrangementer</a>
+        </li>
+        <li>
+          <a href="/jagtforening/fuglekonge/index.html">Årets Fuglekonge</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-section" data-section="sbif">
+      <div class="menu-item section-header">
+        <a href="/sbif/index.html" class="section-link">
+          <span>⚽</span> SBIF
+        </a>
+        <span class="arrow section-toggle">▶</span>
+      </div>
+      <ul class="submenu">
+        <li><a href="/sbif/historie/index.html">Historie</a></li>
+        <li><a href="/sbif/bestyrelse/index.html">Bestyrelse</a></li>
+        <li><a href="/sbif/vedtaegter/index.html">Vedtægter</a></li>
+        <li><a href="/sbif/arrangementer/index.html">Arrangementer</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 280px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .sidebar-logo {
+    color: white;
+    font-size: 1.4em;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+  }
+
+  .sidebar-logo:hover {
+    opacity: 0.9;
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 16px 0;
+    margin: 0;
+  }
+
+  .sidebar-menu > li {
+    margin: 0;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .menu-item span:first-child {
+    margin-right: 12px;
+  }
+
+  .section-header {
+    cursor: default;
+  }
+
+  .section-link {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  .section-link:hover {
+    text-decoration: underline;
+  }
+
+  .section-toggle {
+    cursor: pointer;
+    padding: 8px;
+    margin: -8px;
+  }
+
+  .arrow {
+    font-size: 0.8em;
+    transition: transform 0.3s;
+    margin-left: auto;
+  }
+
+  .menu-section.expanded .arrow {
+    transform: rotate(90deg);
+  }
+
+  .submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .menu-section.expanded .submenu {
+    max-height: 500px;
+  }
+
+  .submenu li a {
+    display: block;
+    padding: 12px 20px 12px 56px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: all 0.2s;
+  }
+
+  .submenu li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .submenu li a.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 600;
+  }
+
+  .content-wrapper {
+    margin-left: 280px;
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      position: relative;
+      height: auto;
+    }
+
+    .content-wrapper {
+      margin-left: 0;
+    }
+  }
+</style>

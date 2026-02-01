@@ -1,0 +1,47 @@
+{
+  "intro": {
+    "title": "Bestyrelse",
+    "members": [
+      {
+        "role": "Formand",
+        "name": "Susanne Østerby",
+        "phone": "61 54 15 44",
+        "email": "toruplund@fibermail.dk",
+        "image": "/sbif/bestyrelse/images/SusanneOsterby.jpg"
+      },
+      {
+        "role": "Næstformand",
+        "name": "Lars Egelund Olsen",
+        "phone": "40 62 25 65",
+        "email": "hoejmark20@gmail.com",
+        "image": "/sbif/bestyrelse/images/LarsEgelund.jpg"
+      },
+      {
+        "role": "Kasserer",
+        "name": "Dorte Olsen",
+        "phone": "28 76 68 90",
+        "email": "Dorte.w.olsen@gmail.com"
+      },
+      {
+        "role": "Indkøbschef",
+        "name": "Sidse S. Olsen",
+        "phone": "50 98 68 17",
+        "email": "sidsedk@yahoo.dk"
+      },
+      {
+        "role": "Medlem",
+        "name": "Karsten Stampe",
+        "phone": "21 64 83 34",
+        "email": "Karsten.Stampe@gmail.com"
+      },
+      {
+        "role": "Suppleant",
+        "name": "Mangler ny medlem"
+      },
+      {
+        "role": "Suppleant",
+        "name": "Mangler ny medlem"
+      }
+    ]
+  }
+}
