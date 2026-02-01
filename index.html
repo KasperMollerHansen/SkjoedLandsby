@@ -5,26 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Skjød Landsby</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="/shared/theme.css" />
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Open Sans", sans-serif;
-        color: #333;
-        overflow-x: hidden;
-      }
-
       .hero {
         min-height: 250px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -252,43 +235,53 @@
   </head>
 
   <body>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1></h1>
-        <p></p>
-      </div>
-    </section>
+    
+    <div id="sidebar"></div>
+    <div class="content-wrapper">
+      <main>
+        <h1
+          style="
+            text-align: center;
+            margin-bottom: 40px;
+            color: #3a4374;
+            font-family: &quot;Raleway&quot;, sans-serif;
+            font-weight: 700;
+          "
+        >
+          Landsbyen Skjød
+        </h1>
+        <div
+          id="image-gallery"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+          "
+        >
+          <!-- Images will be added here -->
+        </div>
+      </main>
 
-    <!-- Cards Section -->
-    <div class="cards">
-      <!-- Content loaded from forside/content.json -->
+      <!-- Footer -->
+      <footer>
+        <div class="footer-content">
+          <div class="footer-widget">
+            <h4></h4>
+            <p></p>
+          </div>
+          <div class="footer-widget">
+            <h4></h4>
+            <p></p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p></p>
+        </div>
+      </footer>
     </div>
 
-    <!-- About Section -->
-    <section class="about-section">
-      <h2></h2>
-      <!-- Content loaded from forside/content.json -->
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <div class="footer-content">
-        <div class="footer-widget">
-          <h4></h4>
-          <p></p>
-        </div>
-        <div class="footer-widget">
-          <h4></h4>
-          <p></p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p></p>
-      </div>
-    </footer>
-
     <!-- Content Loader Script -->
+    <script src="/shared/content-loader.js"></script>
     <script src="/content-loader.js"></script>
     <script src="/shared/footer-loader.js"></script>
   </body>

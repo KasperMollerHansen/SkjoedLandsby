@@ -4,90 +4,79 @@
 (function () {
   "use strict";
 
-  // Load menubar
-  fetch("/shared/menubar.html")
+  // Load sidebar
+  fetch("/shared/sidebar.html")
     .then((r) => r.text())
     .then((html) => {
-      const menubarDiv = document.getElementById("menubar");
-      if (menubarDiv) {
-        menubarDiv.innerHTML = html;
-        // Auto-inject section header and menu links
-        injectSectionHeader();
-        injectMenuLinks();
+      const sidebarDiv = document.getElementById("sidebar");
+      if (sidebarDiv) {
+        sidebarDiv.innerHTML = html;
+        initializeSidebar();
       }
     })
-    .catch((err) => console.error("Failed to load menubar:", err));
+    .catch((err) => console.error("Failed to load sidebar:", err));
 
-  function injectSectionHeader() {
+  function initializeSidebar() {
     const currentPath = window.location.pathname;
-    const menubar = document.querySelector(".main-menubar");
-    if (!menubar) return;
 
-    let sectionTitle = "";
-    let sectionLink = "";
+    // Get saved expanded state from localStorage
+    const savedState = JSON.parse(
+      localStorage.getItem("sidebarExpanded") || "{}",
+    );
 
-    if (currentPath.includes("/tidende/")) {
-      sectionTitle = "Skjød Tidende";
-      sectionLink = "/tidende/index.html";
+    // Determine which section is active and expand it
+    let activeSection = null;
+    if (currentPath === "/index.html" || currentPath === "/") {
+      activeSection = "landsby";
+    } else if (currentPath.includes("/tidende/")) {
+      activeSection = "tidende";
     } else if (currentPath.includes("/jagtforening/")) {
-      sectionTitle = "Skjød Jagtforening";
-      sectionLink = "/jagtforening/index.html";
+      activeSection = "jagtforening";
     } else if (currentPath.includes("/sbif/")) {
-      sectionTitle = "Skjød Borger og Idræts Forening";
-      sectionLink = "/sbif/index.html";
-    } else if (currentPath.includes("/forsamlingshus/")) {
-      sectionTitle = "Forsamlingshus";
-      sectionLink = "/forsamlingshus/index.html";
+      activeSection = "sbif";
     }
 
-    if (sectionTitle) {
-      const header = document.createElement("div");
-      header.className = "section-header";
-      header.innerHTML = `<a href="${sectionLink}">${sectionTitle}</a>`;
-      menubar.parentNode.insertBefore(header, menubar);
-    }
-  }
+    // Restore expanded state from localStorage or expand active section
+    const allSections = document.querySelectorAll(".menu-section");
+    allSections.forEach((section) => {
+      const sectionName = section.getAttribute("data-section");
+      // Expand if saved as expanded OR if it's the active section
+      if (savedState[sectionName] || sectionName === activeSection) {
+        section.classList.add("expanded");
+      }
+    });
 
-  function injectMenuLinks() {
-    const currentPath = window.location.pathname;
-    const ul = document.querySelector(".menubar-links");
-    if (!ul) return;
-
-    // Default menu (just home link)
-    let menuHTML = '<li><a href="/index.html">Forside</a></li>';
-
-    // Tidende section menu
-    if (currentPath.includes("/tidende/")) {
-      menuHTML = `
-        <li><a href="/index.html">Forside</a></li>
-        <li><a href="/tidende/historie/index.html">Historie</a></li>
-        <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
-        <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
-      `;
+    // Highlight active submenu item
+    if (activeSection) {
+      const submenuLinks = document.querySelectorAll(".submenu a");
+      submenuLinks.forEach((link) => {
+        if (link.getAttribute("href") === currentPath) {
+          link.classList.add("active");
+        }
+      });
     }
 
-    // Jagtforening section menu
-    if (currentPath.includes("/jagtforening/")) {
-      menuHTML = `
-        <li><a href="/index.html">Forside</a></li>
-        <li><a href="/jagtforening/historie/index.html">Historie</a></li>
-        <li><a href="/jagtforening/arrangementer/index.html">Arrangementer</a></li>
-        <li><a href="/jagtforening/fuglekonge/index.html">Årets Fuglekonge</a></li>
-      `;
-    }
+    // Add click handlers for section toggles (arrows only)
+    const sectionToggles = document.querySelectorAll(".section-toggle");
+    sectionToggles.forEach((toggle) => {
+      toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const parentSection = toggle.closest(".menu-section");
+        if (parentSection) {
+          parentSection.classList.toggle("expanded");
 
-    // SBIF section menu
-    if (currentPath.includes("/sbif/")) {
-      menuHTML = `
-        <li><a href="/index.html">Forside</a></li>
-        <li><a href="/sbif/historie/index.html">Historie</a></li>
-        <li><a href="/sbif/bestyrelse/index.html">Bestyrelse</a></li>
-        <li><a href="/sbif/vedtaegter/index.html">Vedtægter</a></li>
-        <li><a href="/sbif/arrangementer/index.html">Arrangementer</a></li>
-      `;
-    }
-
-    ul.innerHTML = menuHTML;
+          // Save expanded state to localStorage
+          const sectionName = parentSection.getAttribute("data-section");
+          const isExpanded = parentSection.classList.contains("expanded");
+          const currentState = JSON.parse(
+            localStorage.getItem("sidebarExpanded") || "{}",
+          );
+          currentState[sectionName] = isExpanded;
+          localStorage.setItem("sidebarExpanded", JSON.stringify(currentState));
+        }
+      });
+    });
   }
 
   // Load page-specific content
