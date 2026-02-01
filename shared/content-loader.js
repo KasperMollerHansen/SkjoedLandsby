@@ -24,7 +24,7 @@
       localStorage.getItem("sidebarExpanded") || "{}",
     );
 
-    // Determine which section is active and expand it
+    // Determine which section is active
     let activeSection = null;
     if (currentPath === "/index.html" || currentPath === "/") {
       activeSection = "landsby";
@@ -36,25 +36,32 @@
       activeSection = "sbif";
     }
 
-    // Restore expanded state from localStorage or expand active section
+    // Restore expanded state from localStorage, and also expand active section
     const allSections = document.querySelectorAll(".menu-section");
     allSections.forEach((section) => {
       const sectionName = section.getAttribute("data-section");
       // Expand if saved as expanded OR if it's the active section
       if (savedState[sectionName] || sectionName === activeSection) {
         section.classList.add("expanded");
+        // Save the expanded state if it's the active section
+        if (sectionName === activeSection && !savedState[sectionName]) {
+          savedState[sectionName] = true;
+        }
       }
     });
 
-    // Highlight active submenu item
+    // Save updated state if active section was expanded
     if (activeSection) {
-      const submenuLinks = document.querySelectorAll(".submenu a");
-      submenuLinks.forEach((link) => {
-        if (link.getAttribute("href") === currentPath) {
-          link.classList.add("active");
-        }
-      });
+      localStorage.setItem("sidebarExpanded", JSON.stringify(savedState));
     }
+
+    // Highlight active submenu item
+    const submenuLinks = document.querySelectorAll(".submenu a");
+    submenuLinks.forEach((link) => {
+      if (link.getAttribute("href") === currentPath) {
+        link.classList.add("active");
+      }
+    });
 
     // Add click handlers for section toggles (arrows only)
     const sectionToggles = document.querySelectorAll(".section-toggle");
