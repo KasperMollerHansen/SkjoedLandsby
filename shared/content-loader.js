@@ -11,11 +11,42 @@
       const menubarDiv = document.getElementById("menubar");
       if (menubarDiv) {
         menubarDiv.innerHTML = html;
-        // Auto-inject menu links based on current path
+        // Auto-inject section header and menu links
+        injectSectionHeader();
         injectMenuLinks();
       }
     })
     .catch((err) => console.error("Failed to load menubar:", err));
+
+  function injectSectionHeader() {
+    const currentPath = window.location.pathname;
+    const menubar = document.querySelector(".main-menubar");
+    if (!menubar) return;
+
+    let sectionTitle = "";
+    let sectionLink = "";
+
+    if (currentPath.includes("/tidende/")) {
+      sectionTitle = "Skjød Tidende";
+      sectionLink = "/tidende/index.html";
+    } else if (currentPath.includes("/jagtforening/")) {
+      sectionTitle = "Skjød Jagtforening";
+      sectionLink = "/jagtforening/index.html";
+    } else if (currentPath.includes("/sbif/")) {
+      sectionTitle = "Skjød Borger og Idræts Forening";
+      sectionLink = "/sbif/index.html";
+    } else if (currentPath.includes("/forsamlingshus/")) {
+      sectionTitle = "Forsamlingshus";
+      sectionLink = "/forsamlingshus/index.html";
+    }
+
+    if (sectionTitle) {
+      const header = document.createElement("div");
+      header.className = "section-header";
+      header.innerHTML = `<a href="${sectionLink}">${sectionTitle}</a>`;
+      menubar.parentNode.insertBefore(header, menubar);
+    }
+  }
 
   function injectMenuLinks() {
     const currentPath = window.location.pathname;
@@ -29,7 +60,6 @@
     if (currentPath.includes("/tidende/")) {
       menuHTML = `
         <li><a href="/index.html">Forside</a></li>
-        <li><a href="/tidende/index.html">Skjød Tidende</a></li>
         <li><a href="/tidende/historie/index.html">Historie</a></li>
         <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
         <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
@@ -40,7 +70,6 @@
     if (currentPath.includes("/jagtforening/")) {
       menuHTML = `
         <li><a href="/index.html">Forside</a></li>
-        <li><a href="/jagtforening/index.html">Jagtforening</a></li>
         <li><a href="/jagtforening/historie/index.html">Historie</a></li>
         <li><a href="/jagtforening/arrangementer/index.html">Arrangementer</a></li>
         <li><a href="/jagtforening/fuglekonge/index.html">Årets Fuglekonge</a></li>
@@ -51,7 +80,6 @@
     if (currentPath.includes("/sbif/")) {
       menuHTML = `
         <li><a href="/index.html">Forside</a></li>
-        <li><a href="/sbif/index.html">SBIF</a></li>
         <li><a href="/sbif/historie/index.html">Historie</a></li>
         <li><a href="/sbif/bestyrelse/index.html">Bestyrelse</a></li>
         <li><a href="/sbif/kontakt/index.html">Kontakt</a></li>
