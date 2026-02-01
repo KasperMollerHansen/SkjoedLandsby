@@ -11,9 +11,44 @@
       const menubarDiv = document.getElementById("menubar");
       if (menubarDiv) {
         menubarDiv.innerHTML = html;
+        // Auto-inject menu links based on current path
+        injectMenuLinks();
       }
     })
     .catch((err) => console.error("Failed to load menubar:", err));
+
+  function injectMenuLinks() {
+    const currentPath = window.location.pathname;
+    const ul = document.querySelector(".menubar-links");
+    if (!ul) return;
+
+    // Default menu (just home link)
+    let menuHTML = '<li><a href="/index.html">Forside</a></li>';
+
+    // Tidende section menu
+    if (currentPath.includes("/tidende/")) {
+      menuHTML = `
+        <li><a href="/index.html">Forside</a></li>
+        <li><a href="/tidende/index.html">Skjød Tidende</a></li>
+        <li><a href="/tidende/historie/index.html">Historie</a></li>
+        <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
+        <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
+      `;
+    }
+
+    // Jagtforening section menu
+    if (currentPath.includes("/jagtforening/")) {
+      menuHTML = `
+        <li><a href="/index.html">Forside</a></li>
+        <li><a href="/jagtforening/index.html">Jagtforening</a></li>
+        <li><a href="/jagtforening/historie/index.html">Historie</a></li>
+        <li><a href="/jagtforening/arrangementer/index.html">Arrangementer</a></li>
+        <li><a href="/jagtforening/fuglekonge/index.html">Årets Fuglekonge</a></li>
+      `;
+    }
+
+    ul.innerHTML = menuHTML;
+  }
 
   // Load page-specific content
   document.addEventListener("DOMContentLoaded", function () {
@@ -41,7 +76,10 @@
       if (!main) return;
 
       // Render content based on page type
-      if (content.intro) {
+      if (content.fuglekonger) {
+        // Fuglekonge page - skip, let local loader handle it
+        return;
+      } else if (content.intro) {
         // Tidende-style intro page
         renderIntroPage(main, content);
       } else if (content.hero) {
@@ -61,10 +99,32 @@
       ? `<img src="${data.intro.image}" alt="${data.intro.imageAlt || ""}" style="max-width: 210px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">`
       : "";
 
+    let contentHtml = "";
+
+    // Handle paragraphs array (jagtforening style)
+    if (Array.isArray(data.intro.paragraphs)) {
+      data.intro.paragraphs.forEach((paragraph) => {
+        contentHtml += `<p style="white-space: pre-line; font-size: 1.1em; line-height: 1.6; margin-bottom: 16px;">${paragraph}</p>`;
+      });
+    }
+    // Handle text string (tidende style)
+    else if (data.intro.text) {
+      contentHtml = `<div style="flex: 1; min-width: 220px; white-space: pre-line; font-size: 1.1em;">${data.intro.text}</div>`;
+    }
+
+    // Handle items list (arrangementer style)
+    if (Array.isArray(data.intro.items)) {
+      contentHtml += '<ul style="font-size: 1.1em; line-height: 1.8;">';
+      data.intro.items.forEach((item) => {
+        contentHtml += `<li>${item}</li>`;
+      });
+      contentHtml += "</ul>";
+    }
+
     main.innerHTML = `
       <h1>${data.intro.title || "Skjød Tidende"}</h1>
       <div style="display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 220px; white-space: pre-line; font-size: 1.1em;">${data.intro.text}</div>
+        ${contentHtml}
         ${imageHtml}
       </div>
     `;

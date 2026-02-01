@@ -22,9 +22,9 @@ fetch("content.json")
     }
     // Render members if present
     if (Array.isArray(data.members) && data.members.length) {
-      html += `<h2>Redaktionen</h2><ul style=\"columns:2;max-width:400px;gap:24px;list-style:square inside;\">`;
+      html += `<h2>Redaktionen</h2><ul style="columns:2;gap:32px;list-style:square inside;margin-bottom:20px;">`;
       data.members.forEach((name) => {
-        html += `<li>${name}</li>`;
+        html += `<li style="margin-bottom:12px;break-inside:avoid;">${name}</li>`;
       });
       html += `</ul>`;
     }

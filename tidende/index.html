@@ -13,20 +13,5 @@
       <!-- Content loaded from content.json -->
     </main>
     <script src="/shared/content-loader.js"></script>
-    <script>
-      // Inject Tidende-specific links after menubar loads
-      setTimeout(() => {
-        const ul = document.querySelector(".menubar-links");
-        if (ul) {
-          ul.innerHTML = `
-            <li><a href="/index.html">Forside</a></li>
-            <li><a href="/tidende/index.html">Skjød Tidende</a></li>
-            <li><a href="/tidende/historie/index.html">Historie</a></li>
-            <li><a href="/tidende/redaktion/index.html">Redaktion</a></li>
-            <li><a href="/tidende/arkiv/index.html">Arkiv</a></li>
-          `;
-        }
-      }, 100);
-    </script>
   </body>
 </html>
