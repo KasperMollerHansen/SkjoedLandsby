@@ -47,6 +47,19 @@
       `;
     }
 
+    // SBIF section menu
+    if (currentPath.includes("/sbif/")) {
+      menuHTML = `
+        <li><a href="/index.html">Forside</a></li>
+        <li><a href="/sbif/index.html">SBIF</a></li>
+        <li><a href="/sbif/historie/index.html">Historie</a></li>
+        <li><a href="/sbif/bestyrelse/index.html">Bestyrelse</a></li>
+        <li><a href="/sbif/kontakt/index.html">Kontakt</a></li>
+        <li><a href="/sbif/vedtaegter/index.html">Vedtægter</a></li>
+        <li><a href="/sbif/arrangementer/index.html">Arrangementer</a></li>
+      `;
+    }
+
     ul.innerHTML = menuHTML;
   }
 
