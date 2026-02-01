@@ -205,6 +205,9 @@
       `;
     }
 
+    // Check if arkiv-link-container exists (for arkiv page)
+    const arkivContainer = main.querySelector("#arkiv-link-container");
+
     main.innerHTML = `
       <h1>${data.intro.title || "Skjød Tidende"}</h1>
       <div style="display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap;">
@@ -213,6 +216,7 @@
       </div>
       ${itemsHtml}
       ${pdfHtml}
+      ${arkivContainer ? '<div id="arkiv-link-container"></div>' : ""}
     `;
   }
 
