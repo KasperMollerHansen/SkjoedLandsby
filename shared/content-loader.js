@@ -16,17 +16,17 @@
       const sidebarDiv = document.getElementById("sidebar");
       if (sidebarDiv) {
         sidebarDiv.innerHTML = html;
-        
+
         // Fix all sidebar links to be relative to current page depth
         const basePrefix = pathDepth === 1 ? "./" : "../".repeat(pathDepth - 1);
         const allLinks = sidebarDiv.querySelectorAll("a");
-        allLinks.forEach(link => {
+        allLinks.forEach((link) => {
           const href = link.getAttribute("href");
           if (href && href.startsWith("./")) {
             link.setAttribute("href", basePrefix + href.substring(2));
           }
         });
-        
+
         initializeSidebar();
       }
     })
