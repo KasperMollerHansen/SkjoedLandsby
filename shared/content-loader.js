@@ -4,8 +4,12 @@
 (function () {
   "use strict";
 
+  // Determine the relative path to shared folder based on current location
+  const pathDepth = (window.location.pathname.match(/\//g) || []).length - 1;
+  const relativePath = pathDepth === 1 ? "./shared/" : "../".repeat(pathDepth - 1) + "shared/";
+
   // Load sidebar
-  fetch("/shared/sidebar.html")
+  fetch(relativePath + "sidebar.html")
     .then((r) => r.text())
     .then((html) => {
       const sidebarDiv = document.getElementById("sidebar");
