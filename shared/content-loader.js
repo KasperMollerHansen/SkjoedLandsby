@@ -12,9 +12,14 @@
       pathname.indexOf("/SkjoedLandsby/") + "/SkjoedLandsby".length,
     );
   }
-  const pathDepth = (pathname.match(/\//g) || []).length - 1;
+
+  // Remove trailing /index.html or / if present
+  pathname = pathname.replace(/\/index\.html$/, "").replace(/\/$/, "");
+
+  // Count depth (empty string or root = 0, /tidende = 1, /tidende/arkiv = 2)
+  const pathDepth = pathname === "" ? 0 : (pathname.match(/\//g) || []).length;
   const relativePath =
-    pathDepth === 1 ? "./shared/" : "../".repeat(pathDepth - 1) + "shared/";
+    pathDepth === 0 ? "./shared/" : "../".repeat(pathDepth) + "shared/";
 
   // Load sidebar
   fetch(relativePath + "sidebar.html")
@@ -25,7 +30,7 @@
         sidebarDiv.innerHTML = html;
 
         // Fix all sidebar links to be relative to current page depth
-        const basePrefix = pathDepth === 1 ? "./" : "../".repeat(pathDepth - 1);
+        const basePrefix = pathDepth === 0 ? "./" : "../".repeat(pathDepth);
         const allLinks = sidebarDiv.querySelectorAll("a");
         allLinks.forEach((link) => {
           const href = link.getAttribute("href");
