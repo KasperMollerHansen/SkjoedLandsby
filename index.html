@@ -4,38 +4,110 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Skjød - en livlig landsby midt i Favrskov Kommune med kultur, aktiviteter og lokalsamfund."
+    />
+    <meta name="theme-color" content="#2c3e50" />
     <title>Skjød Landsby</title>
     <link rel="stylesheet" href="./shared/theme.css" />
     <style>
       .frontpage-title {
         text-align: center;
-        color: #3a4374;
-        font-family: "Raleway", sans-serif;
+        color: #1a2332;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
         font-weight: 700;
         margin-bottom: 32px;
-        font-size: 28px;
+        font-size: 2.5rem;
+        line-height: 1.2;
       }
+
+      .frontpage-subtitle {
+        text-align: center;
+        color: #5a6c7d;
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+        font-weight: 400;
+      }
+
       .image-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-        margin-top: 24px;
+        gap: 20px;
+        margin-top: 32px;
       }
+
       .image-grid img {
         width: 100%;
-        height: 250px;
+        height: 280px;
         object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
       }
-      @media (max-width: 768px) {
+
+      .image-grid img:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      @media (max-width: 1024px) {
+        .frontpage-title {
+          font-size: 2.2rem;
+        }
+
         .image-grid {
-          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
+        .image-grid img {
+          height: 240px;
         }
       }
+
+      @media (max-width: 768px) {
+        .frontpage-title {
+          font-size: 1.8rem;
+          margin-bottom: 24px;
+        }
+
+        .frontpage-subtitle {
+          font-size: 1rem;
+        }
+
+        .image-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          margin-top: 24px;
+        }
+
+        .image-grid img {
+          height: 200px;
+        }
+      }
+
       @media (max-width: 480px) {
+        .frontpage-title {
+          font-size: 1.5rem;
+          margin-bottom: 16px;
+        }
+
+        .frontpage-subtitle {
+          font-size: 0.95rem;
+          margin-bottom: 24px;
+        }
+
         .image-grid {
           grid-template-columns: 1fr;
+          gap: 12px;
+          margin-top: 20px;
+        }
+
+        .image-grid img {
+          height: 220px;
         }
       }
     </style>
@@ -44,19 +116,48 @@
     <div id="sidebar"></div>
     <div class="content-wrapper">
       <main>
-        <h1 class="frontpage-title">
-          Velkommen til Skjød – landsbyen midt i Favrskov Kommune
-        </h1>
+        <h1 class="frontpage-title">Velkommen til Skjød</h1>
+        <p class="frontpage-subtitle">
+          En livlig landsby midt i Favrskov Kommune
+        </p>
         <div class="image-grid">
-          <img src="./forside/images/0.jpg" alt="Skjød 1" />
-          <img src="./forside/images/1.jpg" alt="Skjød 2" />
-          <img src="./forside/images/2.jpg" alt="Skjød 3" />
-          <img src="./forside/images/3.jpg" alt="Skjød 4" />
-          <img src="./forside/images/4.jpg" alt="Skjød 5" />
-          <img src="./forside/images/5.jpg" alt="Skjød 6" />
-          <img src="./forside/images/6.jpg" alt="Skjød 7" />
-          <img src="./forside/images/7.jpg" alt="Skjød 8" />
-          <img src="./forside/images/8.jpg" alt="Skjød 9" />
+          <img
+            src="./forside/images/0.jpg"
+            alt="Skjød landspeople"
+            loading="lazy"
+          />
+          <img
+            src="./forside/images/1.jpg"
+            alt="Skjød scenery"
+            loading="lazy"
+          />
+          <img
+            src="./forside/images/2.jpg"
+            alt="Skjød activities"
+            loading="lazy"
+          />
+          <img
+            src="./forside/images/3.jpg"
+            alt="Skjød community"
+            loading="lazy"
+          />
+          <img src="./forside/images/4.jpg" alt="Skjød nature" loading="lazy" />
+          <img src="./forside/images/5.jpg" alt="Skjød events" loading="lazy" />
+          <img
+            src="./forside/images/6.jpg"
+            alt="Skjød landscape"
+            loading="lazy"
+          />
+          <img
+            src="./forside/images/7.jpg"
+            alt="Skjød culture"
+            loading="lazy"
+          />
+          <img
+            src="./forside/images/8.jpg"
+            alt="Skjød gatherings"
+            loading="lazy"
+          />
         </div>
       </main>
     </div>

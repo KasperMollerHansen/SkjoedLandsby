@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="da-DK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skjød Landsby - Content Editor</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+      }
+
+      header {
+        background: white;
+        padding: 24px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      header h1 {
+        color: #2c3e50;
+        margin-bottom: 8px;
+      }
+
+      header p {
+        color: #667eea;
+        font-weight: 500;
+        margin-bottom: 16px;
+      }
+
+      .editor-controls {
+        display: flex;
+        gap: 16px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+      }
+
+      .file-selector {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .file-selector label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #2c3e50;
+      }
+
+      .file-selector select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #e0e6ed;
+        border-radius: 6px;
+        font-size: 1em;
+      }
+
+      .file-selector select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+        font-size: 0.95em;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5568d3;
+      }
+
+      .btn-secondary {
+        background: #e0e6ed;
+        color: #333;
+      }
+
+      .btn-secondary:hover {
+        background: #d0d8e8;
+      }
+
+      .btn-danger {
+        background: #e74c3c;
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background: #c0392b;
+      }
+
+      .info-box {
+        background: #d1ecf1;
+        color: #0c5460;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        border-left: 4px solid #17a2b8;
+      }
+
+      .editor-main {
+        display: flex;
+        gap: 0;
+        margin-top: 24px;
+        height: calc(100vh - 250px);
+      }
+
+      .resize-divider {
+        width: 8px;
+        background: linear-gradient(90deg, transparent, #e0e6ed, transparent);
+        cursor: col-resize;
+        flex-shrink: 0;
+        transition: background 0.2s;
+        user-select: none;
+      }
+
+      .resize-divider:hover,
+      .resize-divider.dragging {
+        background: linear-gradient(90deg, transparent, #667eea, transparent);
+        width: 12px;
+      }
+
+      .editor-panel,
+      .preview-panel {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        padding: 24px;
+        min-width: 200px;
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .editor-panel {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .preview-panel {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      .panel-title {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 16px;
+        border-bottom: 2px solid #e0e6ed;
+        padding-bottom: 12px;
+      }
+
+      .editor-content {
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 16px;
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      .json-textarea {
+        width: 100%;
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #e0e6ed;
+        border-radius: 6px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+        resize: none;
+      }
+
+      .json-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .preview-content {
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      .panel-title {
+        flex-shrink: 0;
+      }
+
+      .editable {
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+
+      .editable:hover {
+        background: #fff3cd;
+        border-color: #ffc107;
+      }
+
+      .editable.editing {
+        background: #d1ecf1;
+        border-color: #17a2b8;
+      }
+
+      .editable input,
+      .editable textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #667eea;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: inherit;
+      }
+
+      .editable input:focus,
+      .editable textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .member-card {
+        background: #f8f9fa;
+        padding: 16px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        border-left: 4px solid #667eea;
+      }
+
+      .member-card h3 {
+        color: #667eea;
+        margin-bottom: 12px;
+      }
+
+      .member-field {
+        margin-bottom: 8px;
+        font-size: 0.95em;
+      }
+
+      .member-field strong {
+        display: inline-block;
+        width: 60px;
+      }
+
+      .status-message {
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 0;
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        min-width: 300px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .status-message.show {
+        display: block;
+      }
+
+      .status-message.success {
+        background: #d4edda;
+        color: #155724;
+        border-left: 4px solid #27ae60;
+      }
+
+      .status-message.error {
+        background: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #e74c3c;
+      }
+
+      @media (max-width: 1024px) {
+        .editor-main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>✏️ Skjød Landsby - Content Editor</h1>
+        <p>Rediger indhold direkte og download som JSON</p>
+      </header>
+
+      <div id="status" class="status-message"></div>
+
+      <div class="editor-controls">
+        <div class="file-selector">
+          <label for="file-select">Vælg fil at redigere:</label>
+          <select id="file-select">
+            <option value="">-- Vælg en fil --</option>
+          </select>
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-primary" onclick="downloadJSON()">
+            📥 Download JSON
+          </button>
+          <button class="btn btn-secondary" onclick="resetContent()">
+            ↺ Nulstil
+          </button>
+        </div>
+      </div>
+
+      <div class="info-box">
+        💡 Vælg en fil, rediger indholdet i JSON-editoren eller klik på tekst
+        for inline-redigering, og download derefter den opdaterede JSON.
+      </div>
+
+      <div class="editor-main">
+        <div class="editor-panel">
+          <div class="panel-title">📝 JSON Editor</div>
+          <textarea
+            id="json-editor"
+            class="json-textarea"
+            placeholder="Vælg en fil ovenfor..."
+          ></textarea>
+        </div>
+
+        <div class="resize-divider" id="resize-divider"></div>
+
+        <div class="preview-panel">
+          <div class="panel-title">👁️ Live Preview</div>
+          <div id="preview" class="preview-content">
+            <p style="color: #999; font-style: italic">
+              Vælg en fil for at se forhåndsvisning...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let files = [];
+      let currentFile = null;
+      let currentData = null;
+      let originalData = null;
+
+      // Load manifest on startup
+      async function initializeApp() {
+        try {
+          const response = await fetch("../manifest.json");
+          const data = await response.json();
+          files = data.files;
+
+          // Populate file selector
+          const select = document.getElementById("file-select");
+          files.forEach((file) => {
+            const option = document.createElement("option");
+            option.value = file.path;
+            option.textContent = file.label;
+            select.appendChild(option);
+          });
+
+          showStatus("success", `✓ ${files.length} filer indlæst`);
+        } catch (error) {
+          showStatus(
+            "error",
+            "Fejl ved indlæsning af manifest.json: " + error.message,
+          );
+        }
+      }
+
+      // File selector change handler
+      document
+        .getElementById("file-select")
+        .addEventListener("change", async (e) => {
+          const path = e.target.value;
+          if (!path) return;
+
+          currentFile = path;
+          await loadFile(path);
+        });
+
+      // Initialize app
+      initializeApp();
+
+      // Load file
+      async function loadFile(path) {
+        try {
+          const response = await fetch("../" + path);
+          if (!response.ok) throw new Error("File not found");
+
+          const data = await response.json();
+          currentData = data;
+          originalData = JSON.parse(JSON.stringify(data));
+
+          // Update editor
+          document.getElementById("json-editor").value = JSON.stringify(
+            data,
+            null,
+            2,
+          );
+
+          // Update preview
+          renderPreview(data);
+
+          showStatus("success", `✓ Fil indlæst: ${path}`);
+        } catch (error) {
+          showStatus("error", `✗ Fejl ved indlæsning: ${error.message}`);
+        }
+      }
+
+      // Render preview
+      function renderPreview(data) {
+        const preview = document.getElementById("preview");
+        preview.innerHTML = "";
+
+        // Handle fuglekonge structure
+        if (data.fuglekonger) {
+          renderFuglekongePreview(preview, data);
+        } else if (data.intro) {
+          renderIntroPreview(preview, data.intro);
+        } else if (hasEditableProperties(data)) {
+          // Handle custom structure (redaktion, historie, etc)
+          renderCustomPreview(preview, data);
+        } else {
+          preview.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+      }
+
+      function hasEditableProperties(data) {
+        // Check if object has title and any array/string properties
+        if (!data.title) return false;
+        return Object.keys(data).some(
+          (key) =>
+            key !== "title" &&
+            (Array.isArray(data[key]) || typeof data[key] === "string"),
+        );
+      }
+
+      function renderCustomPreview(container, data) {
+        if (data.title) {
+          const title = document.createElement("h2");
+          title.textContent = data.title;
+          container.appendChild(title);
+        }
+
+        // Render all properties in order
+        Object.entries(data).forEach(([key, value]) => {
+          if (key === "title") {
+            // Already rendered
+            return;
+          }
+
+          if (key === "mail") {
+            const mailDiv = document.createElement("div");
+            mailDiv.style.marginTop = "24px";
+            mailDiv.style.padding = "12px";
+            mailDiv.style.background = "#f8f9fa";
+            mailDiv.style.borderRadius = "6px";
+            mailDiv.style.borderLeft = "4px solid #667eea";
+            mailDiv.innerHTML = `<strong>Email:</strong> ${value}`;
+            container.appendChild(mailDiv);
+            return;
+          }
+
+          if (Array.isArray(value)) {
+            // Create a section title based on key
+            if (key !== "members" && key !== "intro") {
+              const sectionTitle = document.createElement("h3");
+              sectionTitle.textContent = capitalizeLabel(key);
+              sectionTitle.style.marginTop = "24px";
+              sectionTitle.style.marginBottom = "12px";
+              container.appendChild(sectionTitle);
+            }
+
+            // Determine if this is a list of items or paragraphs
+            const isList =
+              key.includes("point") ||
+              key === "members" ||
+              key.includes("list");
+
+            if (isList) {
+              const list = document.createElement("ul");
+              list.style.marginLeft = "24px";
+
+              value.forEach((item, idx) => {
+                const li = document.createElement("li");
+                li.style.marginBottom = "8px";
+                li.style.padding = "8px";
+                li.style.borderRadius = "4px";
+                li.style.cursor = "pointer";
+                li.style.transition = "all 0.2s";
+                li.textContent = item;
+
+                li.addEventListener("mouseover", () => {
+                  li.style.background = "#fff3cd";
+                });
+                li.addEventListener("mouseout", () => {
+                  li.style.background = "transparent";
+                });
+                li.addEventListener("click", () => {
+                  editField(`${key}[${idx}]`, item, li);
+                });
+
+                list.appendChild(li);
+              });
+
+              container.appendChild(list);
+            } else {
+              // Render as paragraphs
+              value.forEach((paragraph, idx) => {
+                const p = document.createElement("div");
+                p.className = "editable";
+                p.style.whiteSpace = "pre-wrap";
+                p.style.padding = "12px";
+                p.style.marginBottom = "16px";
+                p.textContent = paragraph;
+                p.addEventListener("click", () =>
+                  editField(`${key}[${idx}]`, paragraph, p),
+                );
+                container.appendChild(p);
+              });
+            }
+          } else if (typeof value === "string" && value.length > 0) {
+            const p = document.createElement("div");
+            p.className = "editable";
+            p.style.whiteSpace = "pre-wrap";
+            p.style.padding = "12px";
+            p.style.marginBottom = "16px";
+            p.textContent = value;
+            p.addEventListener("click", () => editField(key, value, p));
+            container.appendChild(p);
+          }
+        });
+      }
+
+      function capitalizeLabel(str) {
+        return str
+          .replace(/([A-Z])/g, " $1")
+          .replace(/_/g, " ")
+          .replace(/\d+/g, "")
+          .trim()
+          .split(" ")
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(" ");
+      }
+
+      function renderFuglekongePreview(container, data) {
+        if (data.title) {
+          const title = document.createElement("h2");
+          title.textContent = data.title;
+          container.appendChild(title);
+        }
+
+        if (data.intro) {
+          const intro = document.createElement("div");
+          intro.className = "editable";
+          intro.style.whiteSpace = "pre-wrap";
+          intro.style.padding = "12px";
+          intro.textContent = data.intro;
+          intro.addEventListener("click", () =>
+            editField("intro", data.intro, intro),
+          );
+          container.appendChild(intro);
+        }
+
+        if (Array.isArray(data.fuglekonger)) {
+          const listTitle = document.createElement("h3");
+          listTitle.textContent = "Fuglekonger";
+          listTitle.style.marginTop = "24px";
+          container.appendChild(listTitle);
+
+          data.fuglekonger.forEach((entry, idx) => {
+            const card = document.createElement("div");
+            card.className = "member-card";
+
+            const year = document.createElement("h4");
+            year.style.color = "#667eea";
+            year.style.marginBottom = "8px";
+            year.textContent = entry.year || "Ukendt år";
+            year.addEventListener("click", (e) => {
+              e.stopPropagation();
+              editField(`fuglekonger[${idx}].year`, entry.year || "", year);
+            });
+            card.appendChild(year);
+
+            if (entry.name) {
+              const name = document.createElement("div");
+              name.className = "member-field";
+              name.innerHTML = `<strong>Vinder:</strong> <span>${entry.name}</span>`;
+              name.addEventListener("click", (e) => {
+                e.stopPropagation();
+                editField(`fuglekonger[${idx}].name`, entry.name, name);
+              });
+              card.appendChild(name);
+            }
+
+            container.appendChild(card);
+          });
+        }
+      }
+
+      function renderIntroPreview(container, intro) {
+        if (intro.title) {
+          const title = document.createElement("h2");
+          title.textContent = intro.title;
+          container.appendChild(title);
+        }
+
+        if (intro.text) {
+          const text = document.createElement("div");
+          text.className = "editable";
+          text.style.whiteSpace = "pre-wrap";
+          text.style.padding = "12px";
+          text.textContent = intro.text;
+          text.addEventListener("click", () =>
+            editField("intro.text", intro.text, text),
+          );
+          container.appendChild(text);
+        }
+
+        if (Array.isArray(intro.members)) {
+          intro.members.forEach((member, idx) => {
+            const card = document.createElement("div");
+            card.className = "member-card";
+
+            const role = document.createElement("h3");
+            role.textContent = member.role || "Medlem";
+            role.addEventListener("click", (e) => {
+              e.stopPropagation();
+              editField(`intro.members[${idx}].role`, member.role || "", role);
+            });
+            card.appendChild(role);
+
+            if (member.name) {
+              const name = document.createElement("div");
+              name.className = "member-field";
+              name.innerHTML = `<strong>Navn:</strong> <span>${member.name}</span>`;
+              name.addEventListener("click", (e) => {
+                e.stopPropagation();
+                editField(`intro.members[${idx}].name`, member.name, name);
+              });
+              card.appendChild(name);
+            }
+
+            if (member.phone) {
+              const phone = document.createElement("div");
+              phone.className = "member-field";
+              phone.innerHTML = `<strong>Tlf:</strong> <span>${member.phone}</span>`;
+              phone.addEventListener("click", (e) => {
+                e.stopPropagation();
+                editField(`intro.members[${idx}].phone`, member.phone, phone);
+              });
+              card.appendChild(phone);
+            }
+
+            if (member.email) {
+              const email = document.createElement("div");
+              email.className = "member-field";
+              email.innerHTML = `<strong>Mail:</strong> <span>${member.email}</span>`;
+              email.addEventListener("click", (e) => {
+                e.stopPropagation();
+                editField(`intro.members[${idx}].email`, member.email, email);
+              });
+              card.appendChild(email);
+            }
+
+            container.appendChild(card);
+          });
+        }
+
+        if (Array.isArray(intro.items)) {
+          const itemsTitle = document.createElement("h3");
+          itemsTitle.textContent = "Elementer";
+          itemsTitle.style.marginTop = "24px";
+          itemsTitle.style.marginBottom = "16px";
+          container.appendChild(itemsTitle);
+
+          const itemsList = document.createElement("ul");
+          itemsList.style.marginLeft = "24px";
+
+          intro.items.forEach((item, idx) => {
+            const li = document.createElement("li");
+            li.style.marginBottom = "8px";
+            li.style.padding = "8px";
+            li.style.borderRadius = "4px";
+            li.style.cursor = "pointer";
+            li.style.transition = "all 0.2s";
+            li.textContent = item;
+
+            li.addEventListener("mouseover", () => {
+              li.style.background = "#fff3cd";
+            });
+            li.addEventListener("mouseout", () => {
+              li.style.background = "transparent";
+            });
+            li.addEventListener("click", () => {
+              editField(`intro.items[${idx}]`, item, li);
+            });
+
+            itemsList.appendChild(li);
+          });
+
+          container.appendChild(itemsList);
+        }
+      }
+
+      function editField(path, value, element) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = value;
+        input.className = "editable-input";
+
+        input.addEventListener("blur", () => {
+          updateData(path, input.value);
+          renderPreview(currentData);
+          document.getElementById("json-editor").value = JSON.stringify(
+            currentData,
+            null,
+            2,
+          );
+        });
+
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") input.blur();
+          if (e.key === "Escape") renderPreview(currentData);
+        });
+
+        element.innerHTML = "";
+        element.appendChild(input);
+        input.focus();
+      }
+
+      function updateData(path, value) {
+        const keys = path.split(/[\.\[\]]/).filter((k) => k);
+        let obj = currentData;
+
+        for (let i = 0; i < keys.length - 1; i++) {
+          const key = keys[i];
+          obj = obj[key];
+        }
+
+        obj[keys[keys.length - 1]] = value;
+      }
+
+      // Sync JSON editor with preview
+      document.getElementById("json-editor").addEventListener("blur", () => {
+        try {
+          const data = JSON.parse(document.getElementById("json-editor").value);
+          currentData = data;
+          renderPreview(data);
+        } catch (e) {
+          // Invalid JSON, ignore
+        }
+      });
+
+      function downloadJSON() {
+        if (!currentData) {
+          showStatus("error", "Vælg først en fil");
+          return;
+        }
+
+        const json = JSON.stringify(currentData, null, 2);
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "content.json";
+        a.click();
+        URL.revokeObjectURL(url);
+
+        showStatus("success", "✓ JSON downloadet!");
+      }
+
+      function resetContent() {
+        if (!currentFile) return;
+        if (confirm("Vil du nulstille alle ændringer?")) {
+          currentData = JSON.parse(JSON.stringify(originalData));
+          document.getElementById("json-editor").value = JSON.stringify(
+            currentData,
+            null,
+            2,
+          );
+          renderPreview(currentData);
+          showStatus("success", "↺ Alle ændringer slettet");
+        }
+      }
+
+      function showStatus(type, message) {
+        const msg = document.getElementById("status");
+        msg.className = `status-message show ${type}`;
+        msg.textContent = message;
+        setTimeout(() => msg.classList.remove("show"), 4000);
+      }
+
+      // Resizable panels
+      const divider = document.getElementById("resize-divider");
+      const editorPanel = document.querySelector(".editor-panel");
+      const previewPanel = document.querySelector(".preview-panel");
+      const editorMain = document.querySelector(".editor-main");
+
+      let isResizing = false;
+
+      divider.addEventListener("mousedown", () => {
+        isResizing = true;
+        divider.classList.add("dragging");
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isResizing) return;
+
+        const container = editorMain;
+        const rect = container.getBoundingClientRect();
+        const newEditorWidth = e.clientX - rect.left;
+        const minWidth = 200;
+        const maxWidth = container.offsetWidth - minWidth - 8;
+
+        if (newEditorWidth > minWidth && newEditorWidth < maxWidth) {
+          const percentage = (newEditorWidth / container.offsetWidth) * 100;
+          editorPanel.style.flex = `0 0 ${percentage}%`;
+          previewPanel.style.flex = `0 0 ${100 - percentage}%`;
+        }
+      });
+
+      document.addEventListener("mouseup", () => {
+        isResizing = false;
+        divider.classList.remove("dragging");
+      });
+    </script>
+  </body>
+</html>
