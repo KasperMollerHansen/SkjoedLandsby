@@ -1,0 +1,58 @@
+{
+  "files": [
+    {
+      "path": "jagtforening/arrangementer/content.json",
+      "label": "Jagtforening - Arrangementer"
+    },
+    {
+      "path": "jagtforening/content.json",
+      "label": "Jagtforening - Forside"
+    },
+    {
+      "path": "jagtforening/fuglekonge/content.json",
+      "label": "Jagtforening - Fuglekonge"
+    },
+    {
+      "path": "jagtforening/historie/content.json",
+      "label": "Jagtforening - Historie"
+    },
+    {
+      "path": "sbif/arrangementer/content.json",
+      "label": "SBIF - Arrangementer"
+    },
+    {
+      "path": "sbif/bestyrelse/content.json",
+      "label": "SBIF - Bestyrelse"
+    },
+    {
+      "path": "sbif/content.json",
+      "label": "SBIF - Forside"
+    },
+    {
+      "path": "sbif/historie/content.json",
+      "label": "SBIF - Historie"
+    },
+    {
+      "path": "sbif/vedtaegter/content.json",
+      "label": "SBIF - Vedtægter"
+    },
+    {
+      "path": "tidende/arkiv/content.json",
+      "label": "Tidende - Arkiv"
+    },
+    {
+      "path": "tidende/content.json",
+      "label": "Tidende - Forside"
+    },
+    {
+      "path": "tidende/historie/content.json",
+      "label": "Tidende - Historie"
+    },
+    {
+      "path": "tidende/redaktion/content.json",
+      "label": "Tidende - Redaktion"
+    }
+  ],
+  "generated": "2026-03-08T10:26:23.543511",
+  "count": 13
+}
