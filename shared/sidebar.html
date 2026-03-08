@@ -1,6 +1,15 @@
-<nav class="sidebar">
+<nav class="sidebar" id="sidebar-menu">
   <div class="sidebar-header">
     <a href="./" class="sidebar-logo">Landsbyen Skjød</a>
+    <button
+      class="mobile-menu-toggle"
+      id="mobile-menu-toggle"
+      aria-label="Toggle menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 
   <ul class="sidebar-menu">
@@ -56,41 +65,82 @@
     margin: 0;
     display: flex;
     min-height: 100vh;
+    flex-direction: row;
   }
 
   .sidebar {
     width: 280px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     overflow-y: auto;
-    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.12);
     z-index: 1000;
+    transition: transform 0.3s ease;
   }
 
   .sidebar-header {
-    padding: 24px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
   }
 
   .sidebar-logo {
     color: white;
-    font-size: 1.4em;
+    font-size: 1.3em;
     font-weight: 700;
     text-decoration: none;
     display: block;
+    flex: 1;
   }
 
   .sidebar-logo:hover {
-    opacity: 0.9;
+    opacity: 0.85;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin: -8px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .mobile-menu-toggle span {
+    width: 24px;
+    height: 3px;
+    background: white;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+  }
+
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
   }
 
   .sidebar-menu {
     list-style: none;
-    padding: 16px 0;
+    padding: 12px 0;
     margin: 0;
   }
 
@@ -105,16 +155,17 @@
     padding: 14px 20px;
     color: white;
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     font-weight: 500;
   }
 
   .menu-item:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .menu-item span:first-child {
     margin-right: 12px;
+    font-size: 1.2em;
   }
 
   .section-header {
@@ -130,19 +181,22 @@
   }
 
   .section-link:hover {
-    text-decoration: underline;
+    opacity: 0.9;
   }
 
   .section-toggle {
     cursor: pointer;
     padding: 8px;
     margin: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .arrow {
     font-size: 0.8em;
-    transition: transform 0.3s;
-    margin-left: auto;
+    transition: transform 0.3s ease;
+    margin-left: 8px;
   }
 
   .menu-section.expanded .arrow {
@@ -156,20 +210,20 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .menu-section.expanded .submenu {
-    max-height: 500px;
+    max-height: 600px;
   }
 
   .submenu li a {
     display: block;
-    padding: 12px 20px 12px 56px;
-    color: rgba(255, 255, 255, 0.9);
+    padding: 11px 20px 11px 54px;
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     font-size: 0.95em;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
   }
 
   .submenu li a:hover {
@@ -178,26 +232,142 @@
   }
 
   .submenu li a.active {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     color: white;
     font-weight: 600;
+    border-left: 3px solid #4f7ce8;
+    padding-left: 51px;
   }
 
   .content-wrapper {
     margin-left: 280px;
     flex: 1;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 280px);
   }
 
+  /* Tablet view - sidebar becomes collapsible */
+  @media (max-width: 1024px) {
+    .sidebar {
+      width: 260px;
+    }
+
+    .content-wrapper {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+    }
+  }
+
+  /* Mobile view */
   @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+    }
+
     .sidebar {
       width: 100%;
-      position: relative;
       height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: auto;
+      flex-direction: column;
+      max-height: 60px;
+      overflow: hidden;
+      transform: translateY(-100%);
+      z-index: 999;
+    }
+
+    .sidebar.open {
+      max-height: 100vh;
+      transform: translateY(0);
+    }
+
+    .sidebar-header {
+      min-height: 60px;
+      padding: 16px 20px;
+      flex-wrap: wrap;
+    }
+
+    .sidebar-logo {
+      font-size: 1.1em;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      padding: 12px 0;
     }
 
     .content-wrapper {
       margin-left: 0;
+      margin-top: 60px;
+      width: 100%;
+      padding-top: 0;
+    }
+
+    main {
+      margin-top: 20px;
+    }
+  }
+
+  /* Small phones */
+  @media (max-width: 480px) {
+    .sidebar-logo {
+      font-size: 1em;
+    }
+
+    .menu-item {
+      padding: 12px 16px;
+      font-size: 0.95em;
+    }
+
+    .submenu li a {
+      padding: 11px 16px 11px 46px;
+    }
+
+    .submenu li a.active {
+      padding-left: 43px;
     }
   }
 </style>
+
+<script>
+  // Mobile menu toggle functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+    const sidebarMenu = document.getElementById("sidebar-menu");
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", function () {
+        toggleBtn.classList.toggle("active");
+        sidebarMenu.classList.toggle("open");
+      });
+
+      // Close menu when a link is clicked
+      const links = sidebarMenu.querySelectorAll("a");
+      links.forEach((link) => {
+        link.addEventListener("click", function () {
+          toggleBtn.classList.remove("active");
+          sidebarMenu.classList.remove("open");
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", function (event) {
+        if (
+          !sidebarMenu.contains(event.target) &&
+          !toggleBtn.contains(event.target)
+        ) {
+          toggleBtn.classList.remove("active");
+          sidebarMenu.classList.remove("open");
+        }
+      });
+    }
+  });
+</script>
