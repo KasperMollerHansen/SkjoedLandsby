@@ -357,7 +357,7 @@ This ensures consistency regardless of page nesting depth.
 
 - Modern browsers (Chrome, Firefox, Safari, Edge)
 - IE11+ (with some degradation)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+- Mobile browsers (iOS Safari, Chrome Mobile, etc.)
 
 ## Future Enhancements
 
